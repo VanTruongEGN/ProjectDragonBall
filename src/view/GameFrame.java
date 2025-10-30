@@ -1,26 +1,30 @@
 package view;
 
+import controller.RegisterController;
+
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
     public GameFrame() {
-        setTitle("2D Map Game");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("Game2D");
 
-        GamePanel panel = new GamePanel();
-        add(panel);
-        pack();
+        RegisterPanel registerPanel = new RegisterPanel(window);
+        window.add(registerPanel);
+        window.pack();
 
-        setLocationRelativeTo(null);
-        setVisible(true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
 
-        // Focus để nhận phím
-        panel.requestFocusInWindow();
-        panel.startGameThread();
+        registerPanel.startGameThread();
+
     }
 
+
     public static void main(String[] args) {
+
         new GameFrame();
     }
 }

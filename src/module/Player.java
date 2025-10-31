@@ -49,6 +49,6 @@ public abstract class Player {
             case "right" -> img = right;
             case "stand"  -> img = down;
         }
-        g2.drawImage(img, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(img, x, y, gp.getTileSize(), gp.getTileSize(), null);
     }
 }

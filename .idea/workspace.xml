@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controller/CharacterSelectController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/RegisterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/RegisterPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,18 +29,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "LeeHuuPhuoc"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/VanTruongEGN/ProjectDragonBall.git",
-    "accountId": "fdb90063-3f62-4ea5-8c22-e8a783e7ff26"
-  }
-}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -67,9 +49,8 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/hoc tap/AIProject/src/Main.java",
-    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -89,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1761828192267</updated>
       <workItem from="1761828194297" duration="77000" />
-      <workItem from="1761828932633" duration="7019000" />
+      <workItem from="1761888212516" duration="612000" />
     </task>
     <servers />
   </component>

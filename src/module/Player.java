@@ -1,54 +1,77 @@
 package module;
-import controller.KeyHandler;
-import view.GamePanel;
 
+import view.GamePanel;
 import java.awt.*;
 
 public abstract class Player {
-    protected int x, y, speed;
-    protected Image up, down, left, right;
-    protected String direction = "stand";
-    KeyHandler keyH;
-    GamePanel gp;
+    protected GamePanel gp;
+    public int x;
+    protected int y;
+    public int hp;
+    public int maxHp;
+    public int mana;
+    public int maxMana;
+    protected Color color;
+    protected boolean facingRight;
+    protected String name;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public Player(GamePanel gp, String name) {
         this.gp = gp;
-        this.keyH = keyH;
-        setDefaultValues();
-        loadPlayerImages();
+        this.name = name;
+        this.maxHp = 100;
+        this.hp = maxHp;
+        this.maxMana = 100;
+        this.mana = maxMana;
     }
 
-    public abstract void setDefaultValues() ;
+    // draw player
+    public abstract void draw(Graphics2D g2);
 
-    public abstract void loadPlayerImages() ;
+    // skill definitions
+    public abstract int getManaCost(int skillIndex);
+    public abstract int getSkillDamage(int skillIndex);
+    public abstract String getSkillName(int skillIndex);
 
-    public void update() {
-        if (keyH.upPressed) {
-            direction = "up";
-            y -= speed;
-        } else if (keyH.downPressed) {
-            direction = "down";
-            y += speed;
-        } else if (keyH.leftPressed) {
-            direction = "left";
-            x -= speed;
-        } else if (keyH.rightPressed) {
-            direction = "right";
-            x += speed;
-        }else{
-            direction = "stand";
-        }
+    // perform a skill: reduce mana and create projectile towards target
+    public Projectile useSkill(int skillIndex, Player target) {
+        if (!canUseSkill(skillIndex)) return null;
+        int cost = getManaCost(skillIndex);
+        int dmg = getSkillDamage(skillIndex);
+        mana -= cost;
+        // projectile speed depends on skillIndex (bigger skill -> faster)
+        int baseSpeed = 6 + skillIndex * 2;
+        int dir = (this.x < target.x) ? 1 : -1;
+        int speed = baseSpeed * dir;
+        // spawn a little offset
+        int spawnX = this.x + (dir == 1 ? 40 : -20);
+        int spawnY = this.y + 25;
+        return new Projectile(gp, this, target, spawnX, spawnY, speed, dmg);
     }
 
-    public void draw(Graphics2D g2) {
-        Image img = null;
-        switch (direction) {
-            case "up" -> img = up;
-            case "down" -> img = down;
-            case "left" -> img = left;
-            case "right" -> img = right;
-            case "stand"  -> img = down;
-        }
-        g2.drawImage(img, x, y, gp.getTileSize(), gp.getTileSize(), null);
+
+
+    public boolean canUseSkill(int skillIndex) {
+        int cost = getManaCost(skillIndex);
+        return mana >= cost && skillIndex >= 1 && skillIndex <= 3;
     }
+
+    public void takeDamage(int dmg) {
+        hp -= dmg;
+        if (hp < 0) hp = 0;
+    }
+
+    public double getHpRatio() { return (double) hp / maxHp; }
+    public double getManaRatio() { return (double) mana / maxMana; }
+
+    public void regenMana(int amount) {
+        mana += amount;
+        if (mana > maxMana) mana = maxMana;
+    }
+
+    public String getName() { return name; }
+    public int getX() { return x; }
+    public int getY() { return y; }
+
+    // default: AI does nothing; Vegeta overrides
+    public Projectile performAutoSkill(Player target) { return null; }
 }

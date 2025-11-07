@@ -4,7 +4,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    // skillPressed: 0 = none, 1 = J, 2 = K, 3 = L
+    private int skillPressed = 0;
+
+    // Called by GamePanel each frame to fetch and clear the pressed skill
+    public int getSkillPressed() {
+        int s = skillPressed;
+        skillPressed = 0;
+        return s;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -12,21 +20,11 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) upPressed = true;
-        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) downPressed = true;
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) leftPressed = true;
-        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) rightPressed = true;
+        if (code == KeyEvent.VK_J) skillPressed = 1;
+        else if (code == KeyEvent.VK_K) skillPressed = 2;
+        else if (code == KeyEvent.VK_L) skillPressed = 3;
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) upPressed = false;
-        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) downPressed = false;
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) leftPressed = false;
-        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) rightPressed = false;
-    }
-
-
+    public void keyReleased(KeyEvent e) {}
 }

@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="r">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/player/hinh.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/player/goku/hinh.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/player/left.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/player/goku/left.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/player/right.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/player/goku/right.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module/Goku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Goku.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module/Vegeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Vegeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/player/goku/skill1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/player/goku/skill1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Projectile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +65,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "vantruong",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/hoc tap/ProjectDragonBall",
@@ -117,7 +110,7 @@
       <workItem from="1762492431661" duration="125000" />
       <workItem from="1762492563758" duration="887000" />
       <workItem from="1762493930570" duration="324000" />
-      <workItem from="1762494810348" duration="2480000" />
+      <workItem from="1762494810348" duration="5094000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <option name="closed" value="true" />

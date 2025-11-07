@@ -1,6 +1,8 @@
 package module;
 
 import view.GamePanel;
+
+import javax.swing.*;
 import java.awt.*;
 
 public class Projectile {
@@ -41,9 +43,8 @@ public class Projectile {
     }
 
     public void draw(Graphics2D g2) {
-        if (owner.getName().equals("Goku")) g2.setColor(Color.yellow);
-        else g2.setColor(Color.magenta);
-        g2.fillOval(x, y, width, height);
+        ImageIcon goku = new ImageIcon("src/assets/player/goku/skill1.png");
+        g2.drawImage(goku.getImage(), x, y, width*2, height*2, null);
     }
 
     public boolean isDestroyed() { return destroyed; }

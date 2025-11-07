@@ -2,6 +2,7 @@ package module;
 
 import view.GamePanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ public class Vegeta extends Player {
     private int cooldown = 0;
 
     public Vegeta(GamePanel gp) {
-        super(gp, "Vegeta");
+        super(gp, "Vegeta", 140,100);
         this.x = gp.getWidth() - 160; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
         this.y = 360;
         this.color = Color.cyan;
@@ -20,8 +21,9 @@ public class Vegeta extends Player {
 
     @Override
     public void draw(Graphics2D g2) {
+        ImageIcon vegeta = new ImageIcon("src/assets/player/goku/hinh.png");
         g2.setColor(color);
-        g2.fillRect(x, y, 40, 60);
+        g2.drawImage(vegeta.getImage(), x, y, null);
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);
     }

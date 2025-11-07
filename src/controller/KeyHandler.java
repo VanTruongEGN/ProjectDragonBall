@@ -25,7 +25,6 @@ public class KeyHandler implements KeyListener {
         else if (code == KeyEvent.VK_K) skillPressed = 2;
         else if (code == KeyEvent.VK_L) skillPressed = 3;
     }
-
     @Override
     public void keyReleased(KeyEvent e) {}
 }

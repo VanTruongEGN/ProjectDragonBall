@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class CharacterSelectPanel extends JPanel implements Runnable {
 
+
     private final int tileSize = 64; // kích thước ô nhân vật
     private final int cols = 7;
     private final int rows = 4;

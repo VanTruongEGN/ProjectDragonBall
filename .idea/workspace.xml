@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
-    </list>
+    <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="r" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +25,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LeeHuuPhuoc&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/VanTruongEGN/ProjectDragonBall.git&quot;,
+    &quot;accountId&quot;: &quot;fdb90063-3f62-4ea5-8c22-e8a783e7ff26&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -49,6 +57,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/hoc tap/AIProject/src/Main.java",
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
     "vue.rearranger.settings.migration": "true"
@@ -71,10 +80,30 @@
       <updated>1761828192267</updated>
       <workItem from="1761828194297" duration="77000" />
       <workItem from="1761888212516" duration="612000" />
+      <workItem from="1762039815927" duration="633000" />
+      <workItem from="1762040491722" duration="2952000" />
+      <workItem from="1762208188546" duration="5000" />
+      <workItem from="1762476999153" duration="27000" />
+      <workItem from="1762477089957" duration="37000" />
+      <workItem from="1762492299411" duration="44000" />
+      <workItem from="1762492431661" duration="125000" />
     </task>
+    <task id="LOCAL-00001" summary="r">
+      <option name="closed" value="true" />
+      <created>1762492479284</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762492479284</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="r" />
+    <option name="LAST_COMMIT_MESSAGE" value="r" />
   </component>
 </project>

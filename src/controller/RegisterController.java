@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
 public class RegisterController implements KeyListener {
 
     private final RegisterPanel view;

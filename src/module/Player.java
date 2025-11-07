@@ -16,12 +16,12 @@ public abstract class Player {
     protected String name;
 
 
-    public Player(GamePanel gp, String name) {
+    public Player(GamePanel gp, String name, int hp, int mana) {
         this.gp = gp;
         this.name = name;
-        this.maxHp = 100;
+        this.maxHp = hp;
         this.hp = maxHp;
-        this.maxMana = 100;
+        this.maxMana = mana;
         this.mana = maxMana;
     }
 

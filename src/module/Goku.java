@@ -3,6 +3,7 @@ package module;
 import controller.KeyHandler;
 import view.GamePanel;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Goku extends Player {
@@ -10,7 +11,7 @@ public class Goku extends Player {
 
 
     public Goku(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Goku");
+        super(gp, "Goku", 120, 100);
         this.keyH = keyH;
         this.x = 120;
         this.y = 360;
@@ -20,9 +21,10 @@ public class Goku extends Player {
 
     @Override
     public void draw(Graphics2D g2) {
+        ImageIcon goku = new ImageIcon("src/assets/player/goku/hinh.png");
         // simple rectangle as character
         g2.setColor(color);
-        g2.fillRect(x, y, 40, 60);
+        g2.drawImage(goku.getImage(), x, y, null);
         // name
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);

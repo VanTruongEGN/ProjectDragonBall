@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 
 public class CharacterSelectController implements KeyListener {
 
+
     private final CharacterSelectPanel view;
     private final JFrame frame;
 

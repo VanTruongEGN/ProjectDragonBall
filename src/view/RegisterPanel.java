@@ -12,6 +12,7 @@ public class RegisterPanel extends JPanel implements Runnable {
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
+
     Thread gameThread;
     Image character;
     Font titleFont, menuFont;

@@ -8,6 +8,7 @@ import java.awt.*;
 public class Goku extends Player {
     private KeyHandler keyH;
 
+
     public Goku(GamePanel gp, KeyHandler keyH) {
         super(gp, "Goku");
         this.keyH = keyH;

@@ -4,6 +4,7 @@ import controller.RegisterController;
 
 import javax.swing.*;
 
+
 public class GameFrame extends JFrame {
     public GameFrame() {
         JFrame window = new JFrame();

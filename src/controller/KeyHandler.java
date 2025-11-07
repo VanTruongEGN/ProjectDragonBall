@@ -7,6 +7,7 @@ public class KeyHandler implements KeyListener {
     // skillPressed: 0 = none, 1 = J, 2 = K, 3 = L
     private int skillPressed = 0;
 
+
     // Called by GamePanel each frame to fetch and clear the pressed skill
     public int getSkillPressed() {
         int s = skillPressed;

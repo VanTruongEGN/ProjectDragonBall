@@ -15,6 +15,7 @@ public abstract class Player {
     protected boolean facingRight;
     protected String name;
 
+
     public Player(GamePanel gp, String name) {
         this.gp = gp;
         this.name = name;

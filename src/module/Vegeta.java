@@ -5,6 +5,7 @@ import view.GamePanel;
 import java.awt.*;
 import java.util.Random;
 
+
 public class Vegeta extends Player {
     private Random rand = new Random();
     private int cooldown = 0;

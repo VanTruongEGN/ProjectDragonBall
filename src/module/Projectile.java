@@ -13,6 +13,7 @@ public class Projectile {
     private boolean destroyed = false;
     private int width = 18, height = 18;
 
+
     public Projectile(GamePanel gp, Player owner, Player target, int x, int y, int speed, int damage) {
         this.gp = gp;
         this.owner = owner;

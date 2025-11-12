@@ -7,17 +7,17 @@ import javax.swing.*;
 
 public class GameFrame extends JFrame {
     public GameFrame() {
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Game2D");
 
-        RegisterPanel registerPanel = new RegisterPanel(window);
-        window.add(registerPanel);
-        window.pack();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setTitle("Game2D");
 
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        RegisterPanel registerPanel = new RegisterPanel(this);
+        this.add(registerPanel);
+        this.pack();
+
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
         registerPanel.startGameThread();
 

@@ -21,9 +21,9 @@ public class Vegeta extends Player {
 
     @Override
     public void draw(Graphics2D g2) {
-        ImageIcon vegeta = new ImageIcon("src/assets/player/goku/hinh.png");
+        ImageIcon vegeta = new ImageIcon("src/assets/player/Vegeta/hinh.png");
         g2.setColor(color);
-        g2.drawImage(vegeta.getImage(), x, y, null);
+        g2.drawImage(vegeta.getImage(), x, y,width*3,height*3, null);
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);
     }

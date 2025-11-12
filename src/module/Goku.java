@@ -24,7 +24,7 @@ public class Goku extends Player {
         ImageIcon goku = new ImageIcon("src/assets/player/goku/hinh.png");
         // simple rectangle as character
         g2.setColor(color);
-        g2.drawImage(goku.getImage(), x, y, null);
+        g2.drawImage(goku.getImage(), x, y,width*3,height*3, null);
         // name
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);

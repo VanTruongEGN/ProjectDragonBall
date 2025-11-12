@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    public final int tileSize = 48;
+    public final int tileSize = 59;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol; // 768
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
         // place vegeta at right side properly
         vegeta.x = screenWidth - 160;
 
-        background = new ImageIcon("src/assets/map/map.jpg").getImage();
+        background = new ImageIcon("src/assets/map/map1.jpg").getImage();
     }
 
     public void startGameThread() {

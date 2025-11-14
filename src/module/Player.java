@@ -14,6 +14,8 @@ public abstract class Player {
     protected Color color;
     protected boolean facingRight;
     protected String name;
+    protected int width =18;
+    protected int height =18;
 
 
     public Player(GamePanel gp, String name, int hp, int mana) {

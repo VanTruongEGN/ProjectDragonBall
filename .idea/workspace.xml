@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="r">
-      <change afterPath="$PROJECT_DIR$/src/assets/map/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/map/img_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/map/map1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="new">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Goku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Goku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Projectile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Vegeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Vegeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/RegisterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/RegisterPanel.java" afterDir="false" />
     </list>
@@ -70,10 +70,10 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;vantruong&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/lhphu/IdeaProjects/ProjectDragonBallLast/src/assets/map&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/hoc tap/ProjectDragonBall&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -118,12 +118,9 @@
       <workItem from="1762492431661" duration="125000" />
       <workItem from="1762492563758" duration="887000" />
       <workItem from="1762493930570" duration="324000" />
-      <workItem from="1762494810348" duration="2480000" />
-      <workItem from="1762915400884" duration="113000" />
-      <workItem from="1762918781286" duration="1713000" />
-      <workItem from="1762939941842" duration="193000" />
-      <workItem from="1762945316811" duration="683000" />
-      <workItem from="1762959835287" duration="4501000" />
+      <workItem from="1762494810348" duration="5094000" />
+      <workItem from="1762755340775" duration="204000" />
+      <workItem from="1762954322638" duration="2410000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <option name="closed" value="true" />

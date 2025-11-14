@@ -7,20 +7,20 @@ import java.awt.*;
 
 public class CharacterSelectPanel extends JPanel implements Runnable {
 
-
-    private final int tileSize = 64; // kích thước ô nhân vật
-    private final int cols = 7;
-    private final int rows = 4;
+    private final int tileSize = 100; // kích thước mỗi ô nhân vật
+    private final int cols = 3;       // 3 cột
+    private final int rows = 2;       // 2 hàng
     private final int screenWidth = 800;
-    private final int screenHeight = 500;
+    private final int screenHeight = 600;
 
     private Image background;
-    private Image[][] characters; // ma trận ảnh nhân vật
+    private Image[][] characters; // 6 nhân vật
     private int selectedRow = 0;
     private int selectedCol = 0;
 
     private Thread gameThread;
     private CharacterSelectController controller;
+    private float glowAlpha = 0f; // hiệu ứng sáng viền
 
     public CharacterSelectPanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -33,13 +33,15 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         this.addKeyListener(controller);
 
         // Background
-        background = new ImageIcon("src/assets/bg/character_select_bg.jpg").getImage();
+        background = new ImageIcon("src/assets/map/img_1.png").getImage();
 
-        // Tạo ảnh giả lập (ở đây dùng tạm các ô màu)
+        // 6 nhân vật (char1 -> char6)
         characters = new Image[rows][cols];
+        int count = 1;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                characters[i][j] = new ImageIcon("src/assets/chars/char" + (i * cols + j + 1) + ".png").getImage();
+                characters[i][j] = new ImageIcon("src/assets/chars/char" + count + ".png").getImage();
+                count++;
             }
         }
     }
@@ -53,17 +55,21 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
     public void run() {
         double drawInterval = 1000000000.0 / 60;
         double nextDrawTime = System.nanoTime() + drawInterval;
+        boolean increase = true;
 
         while (gameThread != null) {
+            // hiệu ứng sáng nhấp nháy
+            glowAlpha += increase ? 0.05f : -0.05f;
+            if (glowAlpha >= 1f) increase = false;
+            if (glowAlpha <= 0f) increase = true;
+
             repaint();
 
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
-
                 if (remainingTime < 0) remainingTime = 0;
                 Thread.sleep((long) remainingTime);
-
                 nextDrawTime += drawInterval;
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -76,61 +82,73 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.drawImage(background, 0, 0, screenWidth, screenHeight, null);
+        if (background != null) {
+            g2.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 
-        int gap = 10;
+        } else {
+            g2.setColor(Color.black);
+            g2.fillRect(0, 0, screenWidth, screenHeight);
+        }
+        String title = "SELECT YOUR FIGHTER";
+        g2.setFont(new Font("PressStart2P-Regular", Font.BOLD, 32));
+        int titleX = getXforCenteredText(title, g2);
+        g2.setColor(new Color(0, 0, 0, 180));
+        g2.drawString(title, titleX-80 + 3, 80 + 3);
+        g2.setColor(new Color(255, 200, 60));
+        g2.drawString(title, titleX -80, 80);
+        g2.fillRect(titleX -80, 88, (int) g2.getFontMetrics().getStringBounds(title, g2).getWidth(), 3);
+
+
+        int gap = 50;
         int totalWidth = cols * tileSize + (cols - 1) * gap;
         int totalHeight = rows * tileSize + (rows - 1) * gap;
 
-        // 🔹 Căn giữa toàn bộ lưới trên màn hình
-        int startX = (screenWidth - totalWidth) / 2;
-        int startY = (screenHeight - totalHeight) / 2 - 40;
+        int startX = (screenWidth - totalWidth) /2 -80;
+        int startY = (screenHeight - totalHeight) / 2 - 20;
 
+        // Vẽ từng nhân vật
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int x = startX + j * (tileSize + gap);
                 int y = startY + i * (tileSize + gap);
 
-                // Nền ô
+                // Nền ô nhân vật
                 g2.setColor(Color.gray);
-                g2.fillRect(x, y, tileSize, tileSize);
+                g2.fillRoundRect(x, y, tileSize, tileSize, 15, 15);
 
-                // Ảnh nhân vật (nếu có)
+                // Ảnh nhân vật
                 if (characters[i][j] != null) {
-                    g2.drawImage(characters[i][j], x, y, tileSize, tileSize, null);
+                    int imgSize = tileSize - 10;
+                    g2.drawImage(characters[i][j], x + 5, y + 5, imgSize, imgSize, null);
                 }
 
-                // Ô đang chọn
+                // Viền trắng
+                g2.setColor(Color.white);
+                g2.setStroke(new BasicStroke(2));
+                g2.drawRoundRect(x, y, tileSize, tileSize, 15, 15);
+
+                // Ô đang chọn — hiệu ứng sáng vàng
                 if (i == selectedRow && j == selectedCol) {
-                    g2.setColor(Color.red);
-                    g2.setStroke(new BasicStroke(4));
-                    g2.drawRect(x - 2, y - 2, tileSize + 4, tileSize + 4);
+                    int glow = (int) (150 + 100 * glowAlpha);
+                    g2.setColor(new Color(255, 220, 0, glow));
+                    g2.setStroke(new BasicStroke(5));
+                    g2.drawRoundRect(x - 4, y - 4, tileSize + 8, tileSize + 8, 18, 18);
                 }
             }
         }
 
-        // 🔹 Vẽ text menu bên dưới
-        g2.setFont(new Font("PressStart2P-Regular", Font.PLAIN, 16));
+
+        g2.setFont(new Font("PressStart2P-Regular", Font.PLAIN, 18));
         g2.setColor(Color.white);
 
-        String[] menuItems = {"1 PLAYER", "2 PLAYERS", "VS MODE", "START", "HELP"};
-        int totalMenuWidth = 0;
-        for (String item : menuItems)
-            totalMenuWidth += g2.getFontMetrics().stringWidth(item) + 60;
-
-        int menuStartX = (screenWidth - totalMenuWidth) / 2;
-        int menuY = startY + totalHeight + 80;
-        int x = menuStartX;
-
-        for (String item : menuItems) {
-            g2.drawString(item, x, menuY);
-            x += g2.getFontMetrics().stringWidth(item) + 60;
         }
 
-        g2.dispose();
+    private int getXforCenteredText(String text, Graphics2D g2) {
+        int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        return screenWidth / 2 - length / 2;
     }
 
-    // Getter và hành vi di chuyển con trỏ
+    // Điều khiển chọn nhân vật
     public void moveUp() {
         selectedRow--;
         if (selectedRow < 0) selectedRow = rows - 1;

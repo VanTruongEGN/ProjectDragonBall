@@ -12,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/src/module/Vegeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Vegeta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/RegisterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/RegisterPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +85,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lhphu\IdeaProjects\ProjectDragonBallLast\src\assets\map" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\hoc tap\ProjectDragonBall\src\assets\player\goku" />
     </key>
@@ -91,8 +95,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>

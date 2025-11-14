@@ -111,7 +111,6 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
             for (int j = 0; j < cols; j++) {
                 int x = startX + j * (tileSize + gap);
                 int y = startY + i * (tileSize + gap);
-
                 // Nền ô nhân vật
                 g2.setColor(Color.gray);
                 g2.fillRoundRect(x, y, tileSize, tileSize, 15, 15);

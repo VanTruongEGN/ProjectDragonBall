@@ -25,14 +25,12 @@ public class Projectile {
         this.speed = speed;
         this.damage = damage;
     }
-
     public void update() {
         x += speed;
         // if out of screen -> destroyed
         if (x + width < 0 || x > gp.getWidth()) {
             destroyed = true;
         }
-
         // simple collision: rectangle intersection with target bounding box
         Rectangle r1 = new Rectangle(x, y, width, height);
         Rectangle r2 = new Rectangle(target.getX(), target.getY(), 40, 60);
@@ -41,12 +39,10 @@ public class Projectile {
             destroyed = true;
         }
     }
-
     public void draw(Graphics2D g2) {
         ImageIcon goku = new ImageIcon("src/assets/player/goku/skill1.png");
         g2.drawImage(goku.getImage(), x, y-20, width*4, height*4, null);
     }
-
     public boolean isDestroyed() { return destroyed; }
 }
 

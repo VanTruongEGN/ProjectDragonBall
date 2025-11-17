@@ -167,7 +167,6 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         selectedCol++;
         if (selectedCol >= cols) selectedCol = 0;
     }
-
     public int getSelectedRow() {
         return selectedRow;
     }

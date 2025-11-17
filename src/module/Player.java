@@ -51,8 +51,6 @@ public abstract class Player {
         return new Projectile(gp, this, target, spawnX, spawnY, speed, dmg);
     }
 
-
-
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
         return mana >= cost && skillIndex >= 1 && skillIndex <= 3;

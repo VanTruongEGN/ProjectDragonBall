@@ -22,9 +22,8 @@ public class Goku extends Player {
     @Override
     public void draw(Graphics2D g2) {
         ImageIcon goku = new ImageIcon("src/assets/player/goku/hinh.png");
-        // simple rectangle as character
         g2.setColor(color);
-        g2.drawImage(goku.getImage(), x, y,width*3,height*3, null);
+        g2.drawImage(goku.getImage(), x, y,width*10,height*11, null);
         // name
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);
@@ -33,9 +32,9 @@ public class Goku extends Player {
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 10; // small
-            case 2: return 25; // medium
-            case 3: return 45; // big
+            case 1: return 10;
+            case 2: return 25;
+            case 3: return 45;
             default: return 0;
         }
     }

@@ -15,12 +15,10 @@ public class GameFrame extends JFrame {
         RegisterPanel registerPanel = new RegisterPanel(this);
         this.add(registerPanel);
         this.pack();
-
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         registerPanel.startGameThread();
-
     }
 
 

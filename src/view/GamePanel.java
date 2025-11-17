@@ -36,7 +36,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
         // create players
         goku = new Goku(this, keyH);
         vegeta = new Vegeta(this);
@@ -50,28 +49,24 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
-
     @Override
     public void run() {
-//        double drawInterval = 1000000000.0 / 60; // 60 FPS
-//        double nextDrawTime = System.nanoTime() + drawInterval;
-//
-//        while (gameThread != null) {
-//            update();
-//            repaint();
-//
-//            try {
-//                double remainingTime = nextDrawTime - System.nanoTime();
-//                remainingTime /= 1000000;
-//                if (remainingTime < 0) remainingTime = 0;
-//                Thread.sleep((long) remainingTime);
-//                nextDrawTime += drawInterval;
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        double drawInterval = 1000000000.0 / 60; // 60 FPS
+        double nextDrawTime = System.nanoTime() + drawInterval;
+        while (gameThread != null) {
+            update();
+            repaint();
+            try {
+                double remainingTime = nextDrawTime - System.nanoTime();
+                remainingTime /= 1000000;
+                if (remainingTime < 0) remainingTime = 0;
+                Thread.sleep((long) remainingTime);
+                nextDrawTime += drawInterval;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
     public void update() {
         // if there are active projectiles, update them
         if (!projectiles.isEmpty()) {
@@ -90,7 +85,6 @@ public class GamePanel extends JPanel implements Runnable {
             return; // while projectiles active, skip accepting new inputs
         }
 
-        // no active projectiles -> accept actions depending on whose turn
         if (gokuTurn) {
             // check input from key handler
             int skill = keyH.getSkillPressed(); // returns 0..3 and resets
@@ -99,8 +93,6 @@ public class GamePanel extends JPanel implements Runnable {
                     Projectile p = goku.useSkill(skill, vegeta);
                     if (p != null) projectiles.add(p);
                 } else {
-                    // optionally: play a sound or show text; for now do nothing
-                    // you could show "Not enough mana" text here
                 }
             }
         } else {
@@ -108,15 +100,12 @@ public class GamePanel extends JPanel implements Runnable {
             Projectile p = vegeta.performAutoSkill(goku);
             if (p != null) projectiles.add(p);
             else {
-                // Vegeta can't use any skill this turn -> just switch turn (with a small delay handled by projectiles logic)
-                // To avoid instant ping-pong, we directly regen and switch
                 switchTurn();
             }
         }
 
         // check win condition
         if (goku.hp <= 0 || vegeta.hp <= 0) {
-            // stop game thread or you can show game over UI - for now we just stop thread
             gameThread = null;
         }
     }
@@ -173,7 +162,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void drawStatusBar(Graphics2D g2) {
         int barW = 220, barH = 18;
-
         // Goku (left)
         int px = 20, py = 20;
         g2.setColor(Color.white);

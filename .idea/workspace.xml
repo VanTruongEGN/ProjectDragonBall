@@ -8,8 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Goku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Goku.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module/Vegeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Vegeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,8 +94,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>
@@ -122,6 +120,8 @@
       <workItem from="1762494810348" duration="5094000" />
       <workItem from="1762755340775" duration="204000" />
       <workItem from="1762954322638" duration="2410000" />
+      <workItem from="1763433218134" duration="5000" />
+      <workItem from="1763559251309" duration="1458000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <option name="closed" value="true" />

@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
-
+    int skillIndex = 0;
     Player goku;
     Player vegeta;
     Image background;
@@ -87,21 +87,16 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gokuTurn) {
             // check input from key handler
-            int skill = keyH.getSkillPressed(); // returns 0..3 and resets
-            if (skill > 0) {
-                if (goku.canUseSkill(skill)) {
-                    Projectile p = goku.useSkill(skill, vegeta);
+             skillIndex = keyH.getSkillPressed(); // returns 0..3 and resets
+            if (skillIndex > 0) {
+                if (goku.canUseSkill(skillIndex)) {
+                    Projectile p = goku.useSkill(skillIndex, vegeta);
                     if (p != null) projectiles.add(p);
                 } else {
                 }
             }
         } else {
-            // Vegeta's turn: auto choose and fire immediately
-            Projectile p = vegeta.performAutoSkill(goku);
-            if (p != null) projectiles.add(p);
-            else {
-                switchTurn();
-            }
+            switchTurn();
         }
 
         // check win condition
@@ -134,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
         vegeta.draw(g2);
 
         // draw projectiles
-        for (Projectile p : projectiles) p.draw(g2);
+        for (Projectile p : projectiles) p.draw(g2,skillIndex);
 
         // draw HUD
         drawStatusBar(g2);
@@ -144,10 +139,6 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setColor(Color.white);
         String turnText = gokuTurn ? "Turn: GOKU (You)" : "Turn: VEGETA (AI)";
         g2.drawString(turnText, screenWidth / 2 - 70, 30);
-
-        // draw skill hints (J/K/L)
-        g2.setFont(new Font("Arial", Font.PLAIN, 12));
-        g2.drawString("Press J/K/L to use skill (Goku). Costs shown on bars.", 20, screenHeight - 20);
 
         // if game stopped due to win, display result
         if (gameThread == null) {
@@ -160,6 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    //thanh máu
     private void drawStatusBar(Graphics2D g2) {
         int barW = 220, barH = 18;
         // Goku (left)

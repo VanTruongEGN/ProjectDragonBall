@@ -23,7 +23,7 @@ public class Goku extends Player {
     public void draw(Graphics2D g2) {
         ImageIcon goku = new ImageIcon("src/assets/player/goku/hinh.png");
         g2.setColor(color);
-        g2.drawImage(goku.getImage(), x, y,width*10,height*11, null);
+        g2.drawImage(goku.getImage(), x, y,width*3,height*4, null);
         // name
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);

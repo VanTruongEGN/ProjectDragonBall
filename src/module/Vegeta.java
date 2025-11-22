@@ -58,9 +58,4 @@ public class Vegeta extends Player {
         }
     }
 
-    // Vegeta AI: choose a skill randomly but prefer skills it can afford
-    @Override
-    public Projectile performAutoSkill(Player target) {
-        return null;
-    }
 }

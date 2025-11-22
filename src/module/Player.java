@@ -38,9 +38,8 @@ public abstract class Player {
     // perform a skill: reduce mana and create projectile towards target
     public Projectile useSkill(int skillIndex, Player target) {
         if (!canUseSkill(skillIndex)) return null;
-        int cost = getManaCost(skillIndex);
         int dmg = getSkillDamage(skillIndex);
-        mana -= cost;
+        setMana(skillIndex);
         // projectile speed depends on skillIndex (bigger skill -> faster)
         int baseSpeed = 6 + skillIndex * 2;
         int dir = (this.x < target.x) ? 1 : -1;
@@ -50,7 +49,9 @@ public abstract class Player {
         int spawnY = this.y + 25;
         return new Projectile(gp, this, target, spawnX, spawnY, speed, dmg);
     }
-
+    public void setMana(int skillIndex){
+        mana-=getManaCost(skillIndex);
+    }
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
         return mana >= cost && skillIndex >= 1 && skillIndex <= 3;
@@ -73,6 +74,4 @@ public abstract class Player {
     public int getX() { return x; }
     public int getY() { return y; }
 
-    // default: AI does nothing; Vegeta overrides
-    public Projectile performAutoSkill(Player target) { return null; }
 }

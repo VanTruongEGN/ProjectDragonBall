@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -84,19 +85,25 @@ public class GamePanel extends JPanel implements Runnable {
             }
             return; // while projectiles active, skip accepting new inputs
         }
-
         if (gokuTurn) {
             // check input from key handler
              skillIndex = keyH.getSkillPressed(); // returns 0..3 and resets
-            if (skillIndex > 0) {
+            if (skillIndex != 0) {
                 if (goku.canUseSkill(skillIndex)) {
                     Projectile p = goku.useSkill(skillIndex, vegeta);
+                    if (p != null) projectiles.add(p);
+                }
+            }
+        } else {
+            Random rand = new Random();
+            skillIndex = rand.nextInt(1,4);
+            if (skillIndex != 0) {
+                if (vegeta.canUseSkill(skillIndex)) {
+                    Projectile p = vegeta.useSkill(skillIndex, goku);
                     if (p != null) projectiles.add(p);
                 } else {
                 }
             }
-        } else {
-            switchTurn();
         }
 
         // check win condition
@@ -142,12 +149,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         // if game stopped due to win, display result
         if (gameThread == null) {
-            g2.setFont(new Font("Arial", Font.BOLD, 36));
-            g2.setColor(Color.yellow);
-            String result = (goku.hp <= 0) ? "VEGETA WINS!" : "GOKU WINS!";
-            g2.drawString(result, screenWidth / 2 - 140, screenHeight / 2);
+            g2.setFont(new Font("Arial", Font.BOLD, 100));
+            g2.setColor(Color.red);
+            String result = (goku.hp <= 0) ? "K.O!" : "YOU WINS!";
+            g2.drawString(result, screenWidth / 2-100, screenHeight / 2);
         }
-
         g2.dispose();
     }
 

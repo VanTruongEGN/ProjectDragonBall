@@ -7,12 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Goku extends Player {
-    private KeyHandler keyH;
-
 
     public Goku(GamePanel gp, KeyHandler keyH) {
         super(gp, "Goku", 120, 100);
-        this.keyH = keyH;
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
@@ -59,7 +56,5 @@ public class Goku extends Player {
         }
     }
 
-    // Goku is player-controlled; no auto skill
-    @Override
-    public Projectile performAutoSkill(Player target) { return null; }
+
 }

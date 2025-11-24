@@ -16,6 +16,9 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol; // 768
     final int screenHeight = tileSize * maxScreenRow; // 576
+    Image gokuAvatar = new ImageIcon("src/assets/player/goku/hinh.png").getImage();
+    Image vegetaAvatar = new ImageIcon("src/assets/player/vegeta/hinh.png").getImage();
+
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
@@ -39,12 +42,39 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         // create players
         goku = new Goku(this, keyH);
-        vegeta = new Vegeta(this);
+        vegeta = new Vegeta(this, keyH);
         // place vegeta at right side properly
         vegeta.x = screenWidth - 160;
 
         background = new ImageIcon("src/assets/map/map1.jpg").getImage();
     }
+
+    public GamePanel(String selectedCharacter) {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.black);
+        this.setDoubleBuffered(true);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+
+        // Người chơi chính (bên trái)
+        switch (selectedCharacter) {
+            case "Goku" -> {
+                goku = new Goku(this, keyH);
+
+            }
+
+            case "Vegeta" -> goku = new Vegeta(this, keyH);
+            case "Trunks" -> goku = new Trunks(this, keyH);
+            default -> goku = new Goku(this, keyH);
+        }
+
+        // Đối thủ mặc định (bên phải)
+        vegeta = new Vegeta(this, keyH);
+        vegeta.x = screenWidth - 160;
+
+        background = new ImageIcon("src/assets/map/map1.jpg").getImage();
+    }
+
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -160,37 +190,56 @@ public class GamePanel extends JPanel implements Runnable {
     //thanh máu
     private void drawStatusBar(Graphics2D g2) {
         int barW = 220, barH = 18;
-        // Goku (left)
         int px = 20, py = 20;
-        g2.setColor(Color.white);
-        g2.drawRect(px - 1, py - 15, barW + 2, 60);
-        g2.setColor(Color.red);
-        g2.fillRect(px, py, (int)(barW * goku.getHpRatio()), barH);
-        g2.setColor(Color.blue);
-        g2.fillRect(px, py + 22, (int)(barW * goku.getManaRatio()), barH);
-        g2.setColor(Color.white);
-        g2.drawString("GOKU HP: " + goku.hp + "/" + goku.maxHp, px, py - 3);
-        g2.drawString("Mana: " + goku.mana + "/" + goku.maxMana, px, py + 20 + barH - 2);
-        // skill costs
-        g2.drawString("J:" + goku.getSkillName(1) + " (" + goku.getManaCost(1) + ")", px, py + 55);
-        g2.drawString("K:" + goku.getSkillName(2) + " (" + goku.getManaCost(2) + ")", px + 90, py + 55);
-        g2.drawString("L:" + goku.getSkillName(3) + " (" + goku.getManaCost(3) + ")", px + 180, py + 55);
-
-        // Vegeta (right)
         int rx = screenWidth - barW - 20;
+        int avatarSize = 50;
+
+
+// HP gradient
+        GradientPaint hpGradient = new GradientPaint(px, py, Color.red, px+barW, py, Color.orange);
+        g2.setPaint(hpGradient);
+        g2.fillRoundRect(px, py, (int)(barW * goku.getHpRatio()), barH, 10, 10);
+
+// Mana gradient
+        GradientPaint manaGradient = new GradientPaint(px, py+22, Color.blue, px+barW, py+22, Color.cyan);
+        g2.setPaint(manaGradient);
+        g2.fillRoundRect(px, py+22, (int)(barW * goku.getManaRatio()), barH, 10, 10);
+
+// Viền
         g2.setColor(Color.white);
-        g2.drawRect(rx - 1, py - 15, barW + 2, 60);
-        g2.setColor(Color.red);
-        g2.fillRect(rx, py, (int)(barW * vegeta.getHpRatio()), barH);
-        g2.setColor(Color.blue);
-        g2.fillRect(rx, py + 22, (int)(barW * vegeta.getManaRatio()), barH);
+        g2.setStroke(new BasicStroke(2));
+        g2.drawRoundRect(px, py, barW, barH, 10, 10);
+        g2.drawRoundRect(px, py+22, barW, barH, 10, 10);
+
+// Text
+        g2.setFont(new Font("Arial", Font.BOLD, 14));
         g2.setColor(Color.white);
-        g2.drawString("VEGETA HP: " + vegeta.hp + "/" + vegeta.maxHp, rx, py - 3);
-        g2.drawString("Mana: " + vegeta.mana + "/" + vegeta.maxMana, rx, py + 20 + barH - 2);
-        // Vegeta skill names for reference
-        g2.drawString("1:" + vegeta.getSkillName(1), rx, py + 55);
-        g2.drawString("2:" + vegeta.getSkillName(2), rx + 90, py + 55);
-        g2.drawString("3:" + vegeta.getSkillName(3), rx + 180, py + 55);
+        g2.drawString("HP: " + goku.hp + "/" + goku.maxHp, px, py-3);
+        g2.setColor(Color.cyan);
+        g2.drawString("Mana: " + goku.mana + "/" + goku.maxMana, px, py+barH+18);
+
+
+
+        GradientPaint hpGradientV = new GradientPaint(rx, py, Color.red, rx+barW, py, Color.orange);
+        g2.setPaint(hpGradientV);
+        g2.fillRoundRect(rx, py, (int)(barW * vegeta.getHpRatio()), barH, 10, 10);
+
+        GradientPaint manaGradientV = new GradientPaint(rx, py+22, Color.blue, rx+barW, py+22, Color.cyan);
+        g2.setPaint(manaGradientV);
+        g2.fillRoundRect(rx, py+22, (int)(barW * vegeta.getManaRatio()), barH, 10, 10);
+
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(2));
+        g2.drawRoundRect(rx, py, barW, barH, 10, 10);
+        g2.drawRoundRect(rx, py+22, barW, barH, 10, 10);
+
+        g2.setFont(new Font("Arial", Font.BOLD, 14));
+        g2.setColor(Color.white);
+        g2.drawString("HP: " + vegeta.hp + "/" + vegeta.maxHp, rx, py-3);
+        g2.setColor(Color.cyan);
+        g2.drawString("Mana: " + vegeta.mana + "/" + vegeta.maxMana, rx, py+barH+18);
+
+
     }
 
     public int getTileSize() { return tileSize; }

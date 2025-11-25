@@ -47,6 +47,7 @@ public abstract class Player {
         // spawn a little offset
         int spawnX = this.x + (dir == 1 ? 40 : -20);
         int spawnY = this.y + 25;
+
         return new Projectile(gp, this, target, spawnX, spawnY, speed, dmg);
     }
     public void setMana(int skillIndex){
@@ -54,7 +55,7 @@ public abstract class Player {
     }
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
-        return mana >= cost && skillIndex >= 1 && skillIndex <= 3;
+        return mana >= cost && skillIndex >= 1 && skillIndex <= 4;
     }
 
     public void takeDamage(int dmg) {
@@ -63,7 +64,7 @@ public abstract class Player {
     }
 
     public double getHpRatio() { return (double) hp / maxHp; }
-    public double getManaRatio() { return (double) mana / maxMana; }
+    public double getManaRatio() { return (double) (mana>maxMana?maxMana:mana) / maxMana; }
 
     public void regenMana(int amount) {
         mana += amount;
@@ -73,5 +74,4 @@ public abstract class Player {
     public String getName() { return name; }
     public int getX() { return x; }
     public int getY() { return y; }
-
 }

@@ -11,7 +11,7 @@ import java.util.Random;
 public class Trunks extends Player {
     private Random rand = new Random();
     private int cooldown = 0;
-
+    ImageIcon trunks;
     public Trunks(GamePanel gp, KeyHandler keyH) {
         super(gp, "Trunks", 140,100);
         this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
@@ -22,7 +22,7 @@ public class Trunks extends Player {
 
     @Override
     public void draw(Graphics2D g2) {
-        ImageIcon trunks= new ImageIcon("src/assets/player/trunks/trunks.png");
+        trunks= new ImageIcon("src/assets/player/trunks/trunks.png");
         g2.setColor(color);
         g2.drawImage(trunks.getImage(), x, y,width*4,height*4, null);
         g2.setColor(Color.white);
@@ -35,6 +35,7 @@ public class Trunks extends Player {
             case 1: return 8;
             case 2: return 20;
             case 3: return 40;
+            case 4: return -50;
             default: return 0;
         }
     }

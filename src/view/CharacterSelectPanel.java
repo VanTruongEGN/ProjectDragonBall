@@ -7,11 +7,19 @@ import java.awt.*;
 
 public class CharacterSelectPanel extends JPanel implements Runnable {
 
-    private final int tileSize = 100; // kích thước mỗi ô nhân vật
+    private final int tileSize = 130; // kích thước mỗi ô nhân vật
     private final int cols = 3;       // 3 cột
     private final int rows = 2;       // 2 hàng
     private final int screenWidth = 800;
     private final int screenHeight = 600;
+    private boolean selectingOpponent = false;
+    // 6 ảnh nhân vật tách riêng
+    private Image char1;
+    private Image char2;
+    private Image char3;
+    private Image char4;
+    private Image char5;
+    private Image char6;
 
     private Image background;
     private Image[][] characters; // 6 nhân vật
@@ -21,6 +29,11 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
     private Thread gameThread;
     private CharacterSelectController controller;
     private float glowAlpha = 0f; // hiệu ứng sáng viền
+    private String[][] characterNames = {
+            { "Goku", "Vegeta", "Trunks" },
+            { "Frieza", "Cell", "MajinBuu" }
+    };
+
 
     public CharacterSelectPanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -35,16 +48,38 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         // Background
         background = new ImageIcon("src/assets/map/img_1.png").getImage();
 
-        // 6 nhân vật (char1 -> char6)
-        characters = new Image[rows][cols];
-        int count = 1;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                characters[i][j] = new ImageIcon("src/assets/chars/char" + count + ".png").getImage();
-                count++;
-            }
-        }
+
+
+
+
+        // Load 6 ảnh nhân vật riêng
+        char1 = new ImageIcon("src/assets/select/img.png").getImage();
+        char2 = new ImageIcon("src/assets/select/img_1.png").getImage();
+        char3 = new ImageIcon("src/assets/select/img_2.png").getImage();
+        char4 = new ImageIcon("src/assets/select/img_3.png").getImage();
+        char5 = new ImageIcon("src/assets/select/img_4.png").getImage();
+        char6 = new ImageIcon("src/assets/select/img_5.png").getImage();
+
+        // Nhét vào grid 2×3
+        characters = new Image[][]{
+                { char1, char2, char3 },
+                { char4, char5, char6 }
+        };
     }
+    public String getCharacterName(int row, int col) {
+        return characterNames[row][col];
+    }
+
+
+
+    public void toggleOpponentSelection() {
+        selectingOpponent = !selectingOpponent;
+    }
+
+    public boolean isSelectingOpponent() {
+        return selectingOpponent;
+    }
+
 
     public void startThread() {
         gameThread = new Thread(this);
@@ -99,7 +134,7 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         g2.fillRect(titleX -80, 88, (int) g2.getFontMetrics().getStringBounds(title, g2).getWidth(), 3);
 
 
-        int gap = 50;
+        int gap = 70;
         int totalWidth = cols * tileSize + (cols - 1) * gap;
         int totalHeight = rows * tileSize + (rows - 1) * gap;
 
@@ -136,11 +171,10 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
             }
         }
 
-
         g2.setFont(new Font("PressStart2P-Regular", Font.PLAIN, 18));
         g2.setColor(Color.white);
 
-        }
+    }
 
     private int getXforCenteredText(String text, Graphics2D g2) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
@@ -167,6 +201,7 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         selectedCol++;
         if (selectedCol >= cols) selectedCol = 0;
     }
+
     public int getSelectedRow() {
         return selectedRow;
     }

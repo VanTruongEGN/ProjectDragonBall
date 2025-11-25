@@ -11,6 +11,7 @@ import java.util.Random;
 public class Vegeta extends Player {
     private Random rand = new Random();
     private int cooldown = 0;
+    ImageIcon vegeta;
 
     public Vegeta(GamePanel gp, KeyHandler keyH) {
         super(gp, "Vegeta", 140,100);
@@ -22,7 +23,7 @@ public class Vegeta extends Player {
 
     @Override
     public void draw(Graphics2D g2) {
-        ImageIcon vegeta = new ImageIcon("src/assets/player/vegeta/hinh.png");
+         vegeta = new ImageIcon("src/assets/player/vegeta/hinh.png");
         g2.setColor(color);
         g2.drawImage(vegeta.getImage(), x, y,width*4,height*4, null);
         g2.setColor(Color.white);
@@ -35,6 +36,7 @@ public class Vegeta extends Player {
             case 1: return 8;
             case 2: return 20;
             case 3: return 40;
+            case 4: return -50;
             default: return 0;
         }
     }
@@ -58,5 +60,4 @@ public class Vegeta extends Player {
             default: return "";
         }
     }
-
 }

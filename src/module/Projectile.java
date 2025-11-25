@@ -46,6 +46,9 @@ public class Projectile {
         if(skillIndex==3){
              skill = new ImageIcon("src/assets/player/goku/skill3.png");
         }
+        if(skillIndex==4){
+            skill = new ImageIcon("src/assets/player/goku/skill4.png");
+        }
 
         g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
     }

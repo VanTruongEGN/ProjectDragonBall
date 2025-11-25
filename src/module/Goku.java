@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Goku extends Player {
-
+    KeyHandler keyH = new KeyHandler();
     public Goku(GamePanel gp, KeyHandler keyH) {
         super(gp, "Goku", 120, 100);
         this.x = 120;
@@ -26,12 +26,14 @@ public class Goku extends Player {
         g2.drawString(name, x, y - 8);
     }
 
+
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
             case 1: return 10;
             case 2: return 25;
             case 3: return 45;
+            case 4: return -50;
             default: return 0;
         }
     }
@@ -55,6 +57,4 @@ public class Goku extends Player {
             default: return "";
         }
     }
-
-
 }

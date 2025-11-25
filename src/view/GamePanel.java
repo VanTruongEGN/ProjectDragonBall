@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int screenHeight = tileSize * maxScreenRow; // 576
     Image gokuAvatar = new ImageIcon("src/assets/player/goku/hinh.png").getImage();
     Image vegetaAvatar = new ImageIcon("src/assets/player/vegeta/hinh.png").getImage();
+    Graphics g;
 
 
     Thread gameThread;
@@ -60,7 +61,6 @@ public class GamePanel extends JPanel implements Runnable {
         switch (selectedCharacter) {
             case "Goku" -> {
                 goku = new Goku(this, keyH);
-
             }
 
             case "Vegeta" -> goku = new Vegeta(this, keyH);
@@ -119,7 +119,14 @@ public class GamePanel extends JPanel implements Runnable {
             // check input from key handler
              skillIndex = keyH.getSkillPressed(); // returns 0..3 and resets
             if (skillIndex != 0) {
-                if (goku.canUseSkill(skillIndex)) {
+                if(skillIndex == 4) {
+                    try {
+                        Thread.sleep(2000); // đợi 2 giây
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (goku.canUseSkill(skillIndex) && gokuTurn) {
                     Projectile p = goku.useSkill(skillIndex, vegeta);
                     if (p != null) projectiles.add(p);
                 }
@@ -131,11 +138,9 @@ public class GamePanel extends JPanel implements Runnable {
                 if (vegeta.canUseSkill(skillIndex)) {
                     Projectile p = vegeta.useSkill(skillIndex, goku);
                     if (p != null) projectiles.add(p);
-                } else {
                 }
             }
         }
-
         // check win condition
         if (goku.hp <= 0 || vegeta.hp <= 0) {
             gameThread = null;
@@ -144,6 +149,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void switchTurn() {
         gokuTurn = !gokuTurn;
+        keyH.getSkillPressed();
         // mana regen for the player whose turn just started
         if (gokuTurn) goku.regenMana(manaRegenPerTurn);
         else vegeta.regenMana(manaRegenPerTurn);
@@ -216,7 +222,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setColor(Color.white);
         g2.drawString("HP: " + goku.hp + "/" + goku.maxHp, px, py-3);
         g2.setColor(Color.cyan);
-        g2.drawString("Mana: " + goku.mana + "/" + goku.maxMana, px, py+barH+18);
+        g2.drawString("Mana: " + (goku.mana>100?goku.maxMana:goku.mana) + "/" + goku.maxMana, px, py+barH+18);
 
 
 

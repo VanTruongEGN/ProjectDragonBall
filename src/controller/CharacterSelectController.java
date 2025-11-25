@@ -37,11 +37,12 @@ public class CharacterSelectController implements KeyListener {
     }
 
     private void selectCharacter() {
-        System.out.println("Selected character at row " + view.getSelectedRow() + ", col " + view.getSelectedCol());
+        int row = view.getSelectedRow();
+        int col = view.getSelectedCol();
+        String selectedCharacter = view.getCharacterName(row, col);
 
-        // Giả sử sau khi chọn thì vào GamePanel
         frame.getContentPane().removeAll();
-        GamePanel gamePanel = new GamePanel();
+        GamePanel gamePanel = new GamePanel(selectedCharacter); // truyền tên nhân vật
         frame.add(gamePanel);
         frame.revalidate();
         frame.repaint();
@@ -49,6 +50,9 @@ public class CharacterSelectController implements KeyListener {
         gamePanel.requestFocusInWindow();
         gamePanel.startGameThread();
     }
+
+
+
 
     @Override
     public void keyReleased(KeyEvent e) {}

@@ -56,6 +56,7 @@ public class RegisterController implements KeyListener {
             case "LOAD GAME":
                 System.out.println("Loading game...");
                 frame.getContentPane().removeAll();
+                // Nếu muốn mặc định load Goku (row=0, col=0)
                 GamePanel gamePanel = new GamePanel();
                 frame.add(gamePanel);
                 frame.revalidate();
@@ -64,6 +65,7 @@ public class RegisterController implements KeyListener {
                 gamePanel.requestFocusInWindow();
                 gamePanel.startGameThread();
                 break;
+
 
             case "QUIT":
                 System.exit(0);

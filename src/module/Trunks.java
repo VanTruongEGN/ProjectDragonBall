@@ -8,12 +8,12 @@ import java.awt.*;
 import java.util.Random;
 
 
-public class Vegeta extends Player {
+public class Trunks extends Player {
     private Random rand = new Random();
     private int cooldown = 0;
 
-    public Vegeta(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Vegeta", 140,100);
+    public Trunks(GamePanel gp, KeyHandler keyH) {
+        super(gp, "Trunks", 140,100);
         this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
         this.y = 360;
         this.color = Color.cyan;
@@ -22,9 +22,9 @@ public class Vegeta extends Player {
 
     @Override
     public void draw(Graphics2D g2) {
-        ImageIcon vegeta = new ImageIcon("src/assets/player/vegeta/hinh.png");
+        ImageIcon trunks= new ImageIcon("src/assets/player/trunks/trunks.png");
         g2.setColor(color);
-        g2.drawImage(vegeta.getImage(), x, y,width*4,height*4, null);
+        g2.drawImage(trunks.getImage(), x, y,width*4,height*4, null);
         g2.setColor(Color.white);
         g2.drawString(name, x, y - 8);
     }

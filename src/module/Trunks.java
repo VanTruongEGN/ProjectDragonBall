@@ -46,6 +46,7 @@ public class Trunks extends Player {
             case 1: return 10;
             case 2: return 22;
             case 3: return 48;
+            case 4: return 0;
             default: return 0;
         }
     }

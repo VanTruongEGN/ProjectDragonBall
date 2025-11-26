@@ -55,7 +55,8 @@ public abstract class Player {
     }
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
-        return mana >= cost && skillIndex >= 1 && skillIndex <= 4;
+        if(skillIndex == 4 && mana==maxMana) return false;
+        return mana >= cost && skillIndex !=0;
     }
 
     public void takeDamage(int dmg) {

@@ -18,9 +18,6 @@ public class GamePanel extends JPanel implements Runnable {
     final int screenHeight = tileSize * maxScreenRow; // 576
     Image gokuAvatar = new ImageIcon("src/assets/player/goku/hinh.png").getImage();
     Image vegetaAvatar = new ImageIcon("src/assets/player/vegeta/hinh.png").getImage();
-    Graphics g;
-
-
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     int skillIndex = 0;
@@ -107,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
                 Projectile p = it.next();
                 p.update();
                 if (p.isDestroyed()) it.remove();
+                if (!p.isDestroyed()) break;
             }
             // if all projectiles finished -> switch turn and regen mana for next player
             if (projectiles.isEmpty()) {
@@ -120,33 +118,43 @@ public class GamePanel extends JPanel implements Runnable {
              skillIndex = keyH.getSkillPressed(); // returns 0..3 and resets
             if (skillIndex != 0) {
                 if(skillIndex == 4) {
-                    try {
-                        Thread.sleep(2000); // đợi 2 giây
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                 }
                 if (goku.canUseSkill(skillIndex) && gokuTurn) {
                     Projectile p = goku.useSkill(skillIndex, vegeta);
                     if (p != null) projectiles.add(p);
-                }
-            }
-        } else {
-            Random rand = new Random();
-            skillIndex = rand.nextInt(1,4);
-            if (skillIndex != 0) {
-                if (vegeta.canUseSkill(skillIndex)) {
-                    Projectile p = vegeta.useSkill(skillIndex, goku);
-                    if (p != null) projectiles.add(p);
+                    if(p==null){
+                        switchTurn();
+                        return;
+                    }
                 }
             }
         }
+        else{
+            autoAI();
+        }
+
         // check win condition
         if (goku.hp <= 0 || vegeta.hp <= 0) {
             gameThread = null;
         }
     }
-
+    private void autoAI(){
+        Random rand = new Random();
+        skillIndex = rand.nextInt(1,4);
+        if (skillIndex != 0) {
+            if (vegeta.canUseSkill(skillIndex)) {
+                Projectile p = vegeta.useSkill(skillIndex, goku);
+                if (p != null) projectiles.add(p);
+                if(p==null){
+                    switchTurn();
+                    return;
+                }
+            }else{
+                autoAI();
+            }
+        }
+    }
     private void switchTurn() {
         gokuTurn = !gokuTurn;
         keyH.getSkillPressed();
@@ -172,7 +180,9 @@ public class GamePanel extends JPanel implements Runnable {
         vegeta.draw(g2);
 
         // draw projectiles
-        for (Projectile p : projectiles) p.draw(g2,skillIndex);
+        for (Projectile p : projectiles) {
+            p.draw(g2,skillIndex);
+        }
 
         // draw HUD
         drawStatusBar(g2);
@@ -187,7 +197,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameThread == null) {
             g2.setFont(new Font("Arial", Font.BOLD, 100));
             g2.setColor(Color.red);
-            String result = (goku.hp <= 0) ? "K.O!" : "YOU WINS!";
+            String result = (goku.hp <= 0) ? "K.O!" : "WINS!";
             g2.drawString(result, screenWidth / 2-100, screenHeight / 2);
         }
         g2.dispose();

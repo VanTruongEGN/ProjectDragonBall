@@ -23,7 +23,7 @@ public class Goku extends Player {
         g2.drawImage(goku.getImage(), x, y,width*3,height*4, null);
         // name
         g2.setColor(Color.white);
-        g2.drawString(name, x, y - 8);
+
     }
 
 
@@ -33,7 +33,8 @@ public class Goku extends Player {
             case 1: return 10;
             case 2: return 25;
             case 3: return 45;
-            case 4: return -50;
+            case 4: return -30;
+            case 5: return 0;
             default: return 0;
         }
     }
@@ -44,6 +45,7 @@ public class Goku extends Player {
             case 1: return 12;
             case 2: return 25;
             case 3: return 50;
+            case 5: return 8;
             default: return 0;
         }
     }
@@ -54,7 +56,10 @@ public class Goku extends Player {
             case 1: return "Punch";
             case 2: return "Ki Blast";
             case 3: return "Kamehameha";
+            case 4: return "Recover";
+            case 5: return "Quick Jab";
             default: return "";
         }
     }
+
 }

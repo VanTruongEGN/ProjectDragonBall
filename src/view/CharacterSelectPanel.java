@@ -30,8 +30,8 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
     private CharacterSelectController controller;
     private float glowAlpha = 0f; // hiệu ứng sáng viền
     private String[][] characterNames = {
-            { "Goku", "Vegeta", "Trunks" },
-            { "Frieza", "Cell", "MajinBuu" }
+            { "Goku", "Vegeta", "Gohan" },
+            { "Piccolo", "Krillin", "Trunks" }
     };
 
 
@@ -49,15 +49,12 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         background = new ImageIcon("src/assets/map/img_1.png").getImage();
 
 
-
-
-
         // Load 6 ảnh nhân vật riêng
-        char1 = new ImageIcon("src/assets/select/img.png").getImage();
-        char2 = new ImageIcon("src/assets/select/img_1.png").getImage();
-        char3 = new ImageIcon("src/assets/select/img_2.png").getImage();
-        char4 = new ImageIcon("src/assets/select/img_3.png").getImage();
-        char5 = new ImageIcon("src/assets/select/img_4.png").getImage();
+        char1 = new ImageIcon("src/assets/select/img_6.png").getImage();
+        char2 = new ImageIcon("src/assets/select/img_7.png").getImage();
+        char3 = new ImageIcon("src/assets/select/img_4.png").getImage();
+        char4 = new ImageIcon("src/assets/select/img_8.png").getImage();
+        char5 = new ImageIcon("src/assets/select/img_9.png").getImage();
         char6 = new ImageIcon("src/assets/select/img_5.png").getImage();
 
         // Nhét vào grid 2×3

@@ -40,24 +40,29 @@ public abstract class Player {
         if (!canUseSkill(skillIndex)) return null;
         int dmg = getSkillDamage(skillIndex);
         setMana(skillIndex);
-        // projectile speed depends on skillIndex (bigger skill -> faster)
+
         int baseSpeed = 6 + skillIndex * 2;
+        if (skillIndex == 5) baseSpeed = 8; // tầm gần nhưng nhanh
         int dir = (this.x < target.x) ? 1 : -1;
         int speed = baseSpeed * dir;
-        // spawn a little offset
-        int spawnX = this.x + (dir == 1 ? 40 : -20);
+
+        int spawnX = this.x + (dir == 1 ? 30 : -30); // gần hơn
         int spawnY = this.y + 25;
 
         return new Projectile(gp, this, target, spawnX, spawnY, speed, dmg);
     }
+
     public void setMana(int skillIndex){
         mana-=getManaCost(skillIndex);
     }
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
-        if(skillIndex == 4 && mana==maxMana) return false;
-        return mana >= cost && skillIndex !=0;
+        if (skillIndex == 4) {
+            return mana < maxMana;
+        }
+        return mana >= cost && skillIndex != 0;
     }
+
 
     public void takeDamage(int dmg) {
         hp -= dmg;

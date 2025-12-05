@@ -51,9 +51,6 @@ public class CharacterSelectController implements KeyListener {
         gamePanel.startGameThread();
     }
 
-
-
-
     @Override
     public void keyReleased(KeyEvent e) {}
 }

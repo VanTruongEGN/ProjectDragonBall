@@ -5,9 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="new">
+      <change afterPath="$PROJECT_DIR$/src/assets/player/gohan/Thiết kế chưa có tên (31).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/img_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/img_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/krillin/Thiết kế chưa có tên (37).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/player/piccolo/Thiết kế chưa có tên (36).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/select/img_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/select/img_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/select/img_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/select/img_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/select/img_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/select/img_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/module/Gohan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/module/Krillin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/module/Piccolo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CharacterSelectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CharacterSelectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Goku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Goku.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Projectile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Trunks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Trunks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Vegeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Vegeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,12 +98,11 @@
     "Application.GameFrame.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "vantruong",
+    "git-widget-placeholder": "Merging vantruong",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/hoc tap/ProjectDragonBall",
+    "last_opened_file_path": "C:/Users/lhphu/IdeaProjects/A.I/src/assets/player/goku",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,17 +115,23 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lhphu\IdeaProjects\A.I\src\assets\player\goku" />
+      <recent name="C:\Users\lhphu\IdeaProjects\A.I\src\assets\player\piccolo" />
+      <recent name="C:\Users\lhphu\IdeaProjects\A.I\src\assets\player\krillin" />
+      <recent name="C:\Users\lhphu\IdeaProjects\A.I\src\assets\player\gohan" />
       <recent name="C:\Users\lhphu\IdeaProjects\ProjectDragonBallLast\src\assets\map" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lhphu\IdeaProjects\A.I\src\assets\player\piccolo" />
+      <recent name="C:\Users\lhphu\IdeaProjects\A.I\src\assets\player\krillin" />
       <recent name="C:\hoc tap\ProjectDragonBall\src\assets\player\goku" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
@@ -129,8 +164,11 @@
       <workItem from="1764011311190" duration="3483000" />
       <workItem from="1764145030952" duration="3127000" />
       <workItem from="1764148600725" duration="1283000" />
-      <workItem from="1764150190307" duration="1872000" />
-      <workItem from="1764855678945" duration="6840000" />
+      <workItem from="1764150190307" duration="1526000" />
+      <workItem from="1764727755853" duration="1216000" />
+      <workItem from="1764803322687" duration="217000" />
+      <workItem from="1764809286133" duration="596000" />
+      <workItem from="1764884818578" duration="9327000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <option name="closed" value="true" />
@@ -176,29 +214,6 @@
           <url>file://$PROJECT_DIR$/src/view/GamePanel.java</url>
           <line>69</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/view/GameFrame.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/view/GamePanel.java</url>
-          <line>187</line>
-          <properties class="view.GamePanel" method="switchTurn">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/view/GamePanel.java</url>
-          <line>236</line>
-          <properties class="view.GamePanel" method="drawStatusBar">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -116,10 +116,13 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if (gokuTurn) {
             // check input from key handler
-             skillIndex = keyH.getSkillPressed(); // returns 0..3 and resets
+            skillIndex = keyH.getSkillPressed();// returns 0..3 and resets
+            if(skillIndex == 5 && goku.strong <100){
+                skillIndex=0;
+            }
             if (skillIndex != 0) {
-                if(skillIndex == 4) {
-
+                if(skillIndex == 5) {
+                    goku.resetStrongRatio();
                 }
                 if (goku.canUseSkill(skillIndex) && gokuTurn) {
                     Projectile p = goku.useSkill(skillIndex, vegeta);
@@ -141,23 +144,22 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     private void autoAI(){
-        int[] skill = new int[3];
+        int[] skill = new int[5];
         Arrays.fill(skill, -1);
         for(int i = 0; i < skill.length; i++){
             if(vegeta.getManaCost(i+1)<=vegeta.mana){
                 skill[i]=i+1;
             }
         }
-        int skillUsed = heristic(skill);
+        int skillUsed = vegeta.strong>=100?5:heristic(skill);
         System.out.println("skillUsed:"+skillUsed);
         if (vegeta.canUseSkill(skillUsed)) {
             Projectile p = vegeta.useSkill(skillUsed, goku);
             if (p != null) projectiles.add(p);
         }
-        System.out.println(vegeta.getMana());
     }
     public int heristic(int[] skillCanUse){
-        double[] heristic =  new double[3];
+        double[] heristic =  new double[5];
         for(int i = 0; i < heristic.length; i++){
             if(skillCanUse[i] != -1){
                 int dmg = vegeta.getSkillDamage(skillCanUse[i]);
@@ -170,7 +172,6 @@ public class GamePanel extends JPanel implements Runnable {
                 heristic[i] = -1;
             }
         }
-
         double best = -1;
         int bestSkill = -1;
 
@@ -262,20 +263,25 @@ public class GamePanel extends JPanel implements Runnable {
         GradientPaint manaGradient = new GradientPaint(px, py + 22, Color.blue, px + barW, py + 22, Color.cyan);
         g2.setPaint(manaGradient);
         g2.fillRoundRect(px, py + 22, (int)(barW * goku.getManaRatio()), barH, 10, 10);
+        //strong
+        GradientPaint strongGradient = new GradientPaint(px, py + 22, Color.yellow, px + barW, py + 22, Color.cyan);
+        g2.setPaint(strongGradient);
+        g2.fillRoundRect(px, py + 44, (int)(barW * goku.getStrongRatio()), barH, 10, 10);
 
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(2));
         g2.drawRoundRect(px, py, barW, barH, 10, 10);
         g2.drawRoundRect(px, py + 22, barW, barH, 10, 10);
+        g2.drawRoundRect(px, py + 44, barW, barH, 10, 10);
 
         drawTextWithOutline(g2, "HP: " + goku.hp + "/" + goku.maxHp, px, py - 3, Color.white, 16);
         drawTextWithOutline(g2, "Mana: " + goku.mana + "/" + goku.maxMana, px, py + barH + 18, Color.cyan, 16);
 
         // --- Tên nhân vật bên trái ---
-        drawTextWithOutline(g2, goku.getName(), px, py + 63, Color.yellow, 20);
+        drawTextWithOutline(g2, goku.getName(), px, py + 85, Color.yellow, 20);
 
         // --- Chiêu thức bên trái ---
-        int skillY = py + 95;
+        int skillY = py + 110;
         for (int i = 1; i <= 3; i++) {
             String skillName = goku.getSkillName(i);
             String dmg = "DMG: " + goku.getSkillDamage(i);
@@ -296,20 +302,25 @@ public class GamePanel extends JPanel implements Runnable {
         GradientPaint manaGradientV = new GradientPaint(rx, py + 22, Color.blue, rx + barW, py + 22, Color.cyan);
         g2.setPaint(manaGradientV);
         g2.fillRoundRect(rx, py + 22, (int)(barW * vegeta.getManaRatio()), barH, 10, 10);
+        //strong
+        GradientPaint strongGradientV = new GradientPaint(rx, py + 22, Color.yellow, rx + barW, py + 22, Color.cyan);
+        g2.setPaint(strongGradientV);
+        g2.fillRoundRect(rx, py + 44, (int)(barW * vegeta.getStrongRatio()), barH, 10, 10);
 
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(2));
         g2.drawRoundRect(rx, py, barW, barH, 10, 10);
         g2.drawRoundRect(rx, py + 22, barW, barH, 10, 10);
+        g2.drawRoundRect(rx, py + 44, barW, barH, 10, 10);
 
         drawTextWithOutline(g2, "HP: " + vegeta.hp + "/" + vegeta.maxHp, rx, py - 3, Color.white, 16);
         drawTextWithOutline(g2, "Mana: " + vegeta.mana + "/" + vegeta.maxMana, rx, py + barH + 18, Color.cyan, 16);
 
         // --- Tên nhân vật bên phải ---
-        drawTextWithOutline(g2, vegeta.getName(), rx, py + 63, Color.cyan, 20);
+        drawTextWithOutline(g2, vegeta.getName(), rx, py + 85, Color.cyan, 20);
 
         // --- Chiêu thức bên phải ---
-        int skillYv = py + 95;
+        int skillYv = py + 110;
         for (int i = 1; i <= 3; i++) {
             String skillName = vegeta.getSkillName(i);
             String dmg = "DMG: " + vegeta.getSkillDamage(i);

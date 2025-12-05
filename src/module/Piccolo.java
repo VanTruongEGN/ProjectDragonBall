@@ -9,7 +9,7 @@ import java.awt.*;
 public class Piccolo extends Player {
     KeyHandler keyH = new KeyHandler();
     public Piccolo(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Piccolo", 120, 100);
+        super(gp, "Piccolo", 180, 100,100);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
@@ -31,8 +31,8 @@ public class Piccolo extends Player {
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
             case 1: return 10;
-            case 2: return 25;
-            case 3: return 45;
+            case 2: return 20;
+            case 3: return 40;
             case 4: return -30;
             case 5: return 0;
             default: return 0;

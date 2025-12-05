@@ -5,39 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54721596-b929-4e9a-95e4-24e817d94777" name="Changes" comment="new">
-      <change afterPath="$PROJECT_DIR$/src/assets/player/gohan/Thiết kế chưa có tên (31).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/img_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/img_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/goku/skill9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/krillin/Thiết kế chưa có tên (37).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/player/piccolo/Thiết kế chưa có tên (36).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/select/img_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/select/img_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/select/img_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/select/img_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/select/img_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/select/img_9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/module/Gohan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/module/Krillin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/module/Piccolo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/CharacterSelectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CharacterSelectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/player/goku/skill11.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/player/goku/skill11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Gohan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Gohan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Goku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Goku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Krillin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Krillin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module/Piccolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Piccolo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Projectile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Trunks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Trunks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module/Vegeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module/Vegeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CharacterSelectPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +75,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging vantruong",
+    "git-widget-placeholder": "vantruong",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/lhphu/IdeaProjects/A.I/src/assets/player/goku",

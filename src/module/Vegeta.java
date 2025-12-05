@@ -14,7 +14,7 @@ public class Vegeta extends Player {
     ImageIcon vegeta;
 
     public Vegeta(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Vegeta", 140,100);
+        super(gp, "Vegeta", 140,100,0);
         this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
         this.y = 360;
         this.color = Color.cyan;
@@ -33,11 +33,10 @@ public class Vegeta extends Player {
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 10;
-            case 2: return 25;
-            case 3: return 45;
-            case 4: return -30;
-            case 5: return 0;
+            case 1: return 15;
+            case 2: return 23;
+            case 3: return 40;
+            case 4: return -50;
             default: return 0;
         }
     }
@@ -45,10 +44,10 @@ public class Vegeta extends Player {
     @Override
     public int getSkillDamage(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 12;
-            case 2: return 25;
-            case 3: return 50;
-            case 5: return 8;
+            case 1: return 5;
+            case 2: return 16;
+            case 3: return 22;
+            case 5: return 36;
             default: return 0;
         }
     }

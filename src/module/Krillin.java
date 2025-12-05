@@ -5,30 +5,27 @@ import view.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
-
-public class Vegeta extends Player {
-    private Random rand = new Random();
-    private int cooldown = 0;
-    ImageIcon vegeta;
-
-    public Vegeta(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Vegeta", 140,100);
-        this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
+public class Krillin extends Player {
+    KeyHandler keyH = new KeyHandler();
+    public Krillin(GamePanel gp, KeyHandler keyH) {
+        super(gp, "Krillin", 120, 100);
+        this.x = 120;
         this.y = 360;
-        this.color = Color.cyan;
-        this.facingRight = false;
+        this.color = Color.orange;
+        this.facingRight = true;
     }
 
     @Override
     public void draw(Graphics2D g2) {
-         vegeta = new ImageIcon("src/assets/player/vegeta/hinh.png");
+        ImageIcon Krillin = new ImageIcon("src/assets/player/krillin/Thiết kế chưa có tên (37).png");
         g2.setColor(color);
-        g2.drawImage(vegeta.getImage(), x, y,width*4,height*4, null);
+        g2.drawImage(Krillin.getImage(), x, y,width*3,height*4, null);
+        // name
         g2.setColor(Color.white);
 
     }
+
 
     @Override
     public int getManaCost(int skillIndex) {
@@ -65,3 +62,4 @@ public class Vegeta extends Player {
         }
     }
 }
+

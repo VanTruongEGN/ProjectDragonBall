@@ -38,17 +38,18 @@ public class Projectile {
     public void draw(Graphics2D g2, int skillIndex) {
         ImageIcon skill=null;
         if(skillIndex==1){
-             skill = new ImageIcon("src/assets/player/goku/skill1.png");
+             skill = new ImageIcon("src/assets/player/goku/skill10.png");
         }
         if(skillIndex==2){
-             skill = new ImageIcon("src/assets/player/goku/skill2.png");
+             skill = new ImageIcon("src/assets/player/goku/skill8.png");
         }
         if(skillIndex==3){
-             skill = new ImageIcon("src/assets/player/goku/skill3.png");
+             skill = new ImageIcon("src/assets/player/goku/skill9.png");
         }
-        if(skillIndex==4){
-            skill = new ImageIcon("src/assets/player/goku/skill4.png");
+        if(skillIndex==5){
+            skill = new ImageIcon("src/assets/player/goku/skill11.png");
         }
+
 
         g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
     }

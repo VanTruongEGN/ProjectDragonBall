@@ -66,7 +66,6 @@ public class RegisterController implements KeyListener {
                 gamePanel.startGameThread();
                 break;
 
-
             case "QUIT":
                 System.exit(0);
                 break;

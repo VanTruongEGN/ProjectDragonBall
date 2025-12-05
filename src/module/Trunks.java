@@ -26,16 +26,17 @@ public class Trunks extends Player {
         g2.setColor(color);
         g2.drawImage(trunks.getImage(), x, y,width*4,height*4, null);
         g2.setColor(Color.white);
-        g2.drawString(name, x, y - 8);
+
     }
 
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 8;
-            case 2: return 20;
-            case 3: return 40;
-            case 4: return -50;
+            case 1: return 10;
+            case 2: return 25;
+            case 3: return 45;
+            case 4: return -30;
+            case 5: return 0;
             default: return 0;
         }
     }
@@ -43,10 +44,10 @@ public class Trunks extends Player {
     @Override
     public int getSkillDamage(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 10;
-            case 2: return 22;
-            case 3: return 48;
-            case 4: return 0;
+            case 1: return 12;
+            case 2: return 25;
+            case 3: return 50;
+            case 5: return 8;
             default: return 0;
         }
     }
@@ -54,9 +55,11 @@ public class Trunks extends Player {
     @Override
     public String getSkillName(int skillIndex) {
         switch (skillIndex) {
-            case 1: return "Quick Strike";
-            case 2: return "Galick Gun";
-            case 3: return "Final Flash";
+            case 1: return "Punch";
+            case 2: return "Ki Blast";
+            case 3: return "Kamehameha";
+            case 4: return "Recover";
+            case 5: return "Quick Jab";
             default: return "";
         }
     }

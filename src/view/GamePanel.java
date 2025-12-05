@@ -6,6 +6,7 @@ import module.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -140,20 +141,49 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     private void autoAI(){
-        Random rand = new Random();
-        skillIndex = rand.nextInt(1,4);
-        if (skillIndex != 0) {
-            if (vegeta.canUseSkill(skillIndex)) {
-                Projectile p = vegeta.useSkill(skillIndex, goku);
-                if (p != null) projectiles.add(p);
-                if(p==null){
-                    switchTurn();
-                    return;
-                }
-            }else{
-                autoAI();
+        int[] skill = new int[3];
+        Arrays.fill(skill, -1);
+        for(int i = 0; i < skill.length; i++){
+            if(vegeta.getManaCost(i+1)<=vegeta.mana){
+                skill[i]=i+1;
             }
         }
+        int skillUsed = heristic(skill);
+        System.out.println("skillUsed:"+skillUsed);
+        if (vegeta.canUseSkill(skillUsed)) {
+            Projectile p = vegeta.useSkill(skillUsed, goku);
+            if (p != null) projectiles.add(p);
+        }
+        System.out.println(vegeta.getMana());
+    }
+    public int heristic(int[] skillCanUse){
+        double[] heristic =  new double[3];
+        for(int i = 0; i < heristic.length; i++){
+            if(skillCanUse[i] != -1){
+                int dmg = vegeta.getSkillDamage(skillCanUse[i]);
+                if(dmg >= goku.hp){
+                    heristic[i] = Double.MAX_VALUE;
+                } else {
+                    heristic[i] = (double)dmg / goku.hp;
+                }
+            } else {
+                heristic[i] = -1;
+            }
+        }
+
+        double best = -1;
+        int bestSkill = -1;
+
+        for(int i = 0; i < heristic.length; i++){
+            if(heristic[i] > best){
+                best = heristic[i];
+                bestSkill = skillCanUse[i];
+            }
+        }
+        if(Arrays.stream(heristic).max().getAsDouble()==0){
+            return 4;
+        }
+        return bestSkill;
     }
     private void switchTurn() {
         gokuTurn = !gokuTurn;

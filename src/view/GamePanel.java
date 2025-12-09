@@ -136,6 +136,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         else{
             autoAI();
+
         }
 
         // check win condition
@@ -150,10 +151,17 @@ public class GamePanel extends JPanel implements Runnable {
             if(vegeta.getManaCost(i+1)<=vegeta.mana){
                 skill[i]=i+1;
             }
+            if(skill[4]!=-1 && vegeta.getStrongRatio()<100){
+                skill[4]=-1;
+            }
         }
         int skillUsed = vegeta.strong>=100?5:heristic(skill);
         System.out.println("skillUsed:"+skillUsed);
+        if(skillIndex==5){
+            vegeta.resetStrongRatio();
+        }
         if (vegeta.canUseSkill(skillUsed)) {
+
             Projectile p = vegeta.useSkill(skillUsed, goku);
             if (p != null) projectiles.add(p);
         }

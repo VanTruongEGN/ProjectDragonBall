@@ -9,7 +9,7 @@ import java.awt.*;
 public class Goku extends Player {
     KeyHandler keyH = new KeyHandler();
     public Goku(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Goku", 120, 100);
+        super(gp, "Goku", 120, 100,0);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
@@ -33,7 +33,7 @@ public class Goku extends Player {
             case 1: return 10;
             case 2: return 25;
             case 3: return 45;
-            case 4: return -30;
+            case 4: return -50;
             case 5: return 0;
             default: return 0;
         }
@@ -42,10 +42,10 @@ public class Goku extends Player {
     @Override
     public int getSkillDamage(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 12;
-            case 2: return 25;
-            case 3: return 50;
-            case 5: return 8;
+            case 1: return 8;
+            case 2: return 19;
+            case 3: return 29;
+            case 5: return 40;
             default: return 0;
         }
     }

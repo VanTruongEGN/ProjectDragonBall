@@ -11,6 +11,8 @@ public abstract class Player {
     public int maxHp;
     public int mana;
     public int maxMana;
+    public int strong;
+    public int maxStrong;
     protected Color color;
     protected boolean facingRight;
     protected String name;
@@ -18,13 +20,15 @@ public abstract class Player {
     protected int height =18;
 
 
-    public Player(GamePanel gp, String name, int hp, int mana) {
+    public Player(GamePanel gp, String name, int hp, int mana, int strong) {
         this.gp = gp;
         this.name = name;
         this.maxHp = hp;
         this.hp = maxHp;
         this.maxMana = mana;
         this.mana = maxMana;
+        this.strong = strong;
+        this.maxStrong = 100;
     }
 
     // draw player
@@ -40,6 +44,9 @@ public abstract class Player {
         if (!canUseSkill(skillIndex)) return null;
         int dmg = getSkillDamage(skillIndex);
         setMana(skillIndex);
+        if (skillIndex !=5) {
+            setStrong();
+        }
 
         int baseSpeed = 6 + skillIndex * 2;
         if (skillIndex == 5) baseSpeed = 8; // tầm gần nhưng nhanh
@@ -54,6 +61,9 @@ public abstract class Player {
 
     public void setMana(int skillIndex){
         mana-=getManaCost(skillIndex);
+    }
+    public void setStrong(){
+        strong+=34;
     }
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
@@ -71,6 +81,10 @@ public abstract class Player {
 
     public double getHpRatio() { return (double) hp / maxHp; }
     public double getManaRatio() { return (double) (mana>maxMana?maxMana:mana) / maxMana; }
+    public double getStrongRatio() { return (double) (strong>maxStrong?maxStrong:strong) / maxStrong; }
+    public void resetStrongRatio() {
+        strong = 0;
+    }
 
     public void regenMana(int amount) {
         mana += amount;

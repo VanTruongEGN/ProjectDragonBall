@@ -9,7 +9,7 @@ import java.awt.*;
 public class Krillin extends Player {
     KeyHandler keyH = new KeyHandler();
     public Krillin(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Krillin", 120, 100);
+        super(gp, "Krillin", 120, 100,100);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;

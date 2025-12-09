@@ -10,7 +10,7 @@ public class Gohan extends Player {
     KeyHandler keyH = new KeyHandler();
     ImageIcon gohan;
     public Gohan(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Gohan", 120, 100);
+        super(gp, "Gohan", 120, 100,100);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;

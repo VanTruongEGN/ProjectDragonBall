@@ -9,8 +9,6 @@ import java.util.Random;
 
 
 public class Vegeta extends Player {
-    private Random rand = new Random();
-    private int cooldown = 0;
     ImageIcon vegeta;
 
     public Vegeta(GamePanel gp, KeyHandler keyH) {
@@ -19,6 +17,13 @@ public class Vegeta extends Player {
         this.y = 360;
         this.color = Color.cyan;
         this.facingRight = false;
+    }
+    public Vegeta() {
+        super( "Vegeta", 120, 100,0);
+    }
+
+    public Vegeta(Player vegeta) {
+        super(vegeta);
     }
 
     @Override

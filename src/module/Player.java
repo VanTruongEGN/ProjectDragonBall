@@ -30,6 +30,24 @@ public abstract class Player {
         this.strong = strong;
         this.maxStrong = 100;
     }
+    public Player(String name, int hp, int mana, int strong){
+        this.name = name;
+        this.maxHp = hp;
+        this.hp = maxHp;
+        this.maxMana = mana;
+        this.mana = maxMana;
+        this.strong = strong;
+        this.maxStrong = 100;
+    }
+    public Player(Player other){
+        this.name = other.name;
+        this.maxHp = other.maxHp;
+        this.hp = other.hp;
+        this.maxMana = other.maxMana;
+        this.mana = other.mana;
+        this.strong = other.strong;
+        this.maxStrong = other.maxStrong;
+    }
 
     // draw player
     public abstract void draw(Graphics2D g2);
@@ -63,7 +81,7 @@ public abstract class Player {
         mana-=getManaCost(skillIndex);
     }
     public void setStrong(){
-        strong+=34;
+        strong+=25;
     }
     public boolean canUseSkill(int skillIndex) {
         int cost = getManaCost(skillIndex);
@@ -86,14 +104,13 @@ public abstract class Player {
         strong = 0;
     }
 
-    public void regenMana(int amount) {
-        mana += amount;
-        if (mana > maxMana) mana = maxMana;
-    }
 
     public String getName() { return name; }
     public int getX() { return x; }
     public int getY() { return y; }
     public int getMana() { return mana; }
     public int getHp() { return hp; }
+
+    public int setHP(int hp) { return this.hp = hp; }
+    public int setManaUse(int mana) { return this.mana = mana; }
 }

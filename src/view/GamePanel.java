@@ -1,5 +1,8 @@
 package view;
 
+import AI.GameState;
+import AI.Greedy;
+import AI.MiniMax;
 import controller.KeyHandler;
 import module.*;
 
@@ -8,7 +11,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Random;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -23,13 +25,15 @@ public class GamePanel extends JPanel implements Runnable {
     Player goku;
     Player vegeta;
     Image background;
+    Greedy greedy = new Greedy();
+    boolean gameOver = false;
+    MiniMax miniMax = new MiniMax();
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
     // turn-based
     private boolean gokuTurn = true;
     private boolean waitingProjectiles = false; // true while projectiles are active
-    private int manaRegenPerTurn = 8;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -142,64 +146,25 @@ public class GamePanel extends JPanel implements Runnable {
         // check win condition
         if (goku.hp <= 0 || vegeta.hp <= 0) {
             gameThread = null;
+            gameOver = true;
         }
     }
     private void autoAI(){
-        int[] skill = new int[5];
-        Arrays.fill(skill, -1);
-        for(int i = 0; i < skill.length; i++){
-            if(vegeta.getManaCost(i+1)<=vegeta.mana){
-                skill[i]=i+1;
-            }
-            if(skill[4]!=-1 && vegeta.getStrongRatio()<100){
-                skill[4]=-1;
-            }
-        }
-        int skillUsed = vegeta.strong>=100?5:heristic(skill);
-        System.out.println("skillUsed:"+skillUsed);
+        skillIndex = vegeta.strong>=100?5:miniMax.getBestSkill(new GameState(goku,vegeta), 3);
+        System.out.println("skillUsed:"+skillIndex);
         if(skillIndex==5){
             vegeta.resetStrongRatio();
         }
-        if (vegeta.canUseSkill(skillUsed)) {
+        if (vegeta.canUseSkill(skillIndex)) {
 
-            Projectile p = vegeta.useSkill(skillUsed, goku);
+            Projectile p = vegeta.useSkill(skillIndex, goku);
             if (p != null) projectiles.add(p);
         }
-    }
-    public int heristic(int[] skillCanUse){
-        double[] heristic =  new double[5];
-        for(int i = 0; i < heristic.length; i++){
-            if(skillCanUse[i] != -1){
-                int dmg = vegeta.getSkillDamage(skillCanUse[i]);
-                if(dmg >= goku.hp){
-                    heristic[i] = Double.MAX_VALUE;
-                } else {
-                    heristic[i] = (double)dmg / goku.hp;
-                }
-            } else {
-                heristic[i] = -1;
-            }
-        }
-        double best = -1;
-        int bestSkill = -1;
-
-        for(int i = 0; i < heristic.length; i++){
-            if(heristic[i] > best){
-                best = heristic[i];
-                bestSkill = skillCanUse[i];
-            }
-        }
-        if(Arrays.stream(heristic).max().getAsDouble()==0){
-            return 4;
-        }
-        return bestSkill;
     }
     private void switchTurn() {
         gokuTurn = !gokuTurn;
         keyH.getSkillPressed();
         // mana regen for the player whose turn just started
-        if (gokuTurn) goku.regenMana(manaRegenPerTurn);
-        else vegeta.regenMana(manaRegenPerTurn);
     }
 
     @Override

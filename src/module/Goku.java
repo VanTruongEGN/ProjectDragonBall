@@ -15,6 +15,14 @@ public class Goku extends Player {
         this.color = Color.orange;
         this.facingRight = true;
     }
+    public Goku() {
+        super( "Goku", 120, 100,0);
+    }
+
+    public Goku(Player goku) {
+        super(goku);
+    }
+
 
     @Override
     public void draw(Graphics2D g2) {

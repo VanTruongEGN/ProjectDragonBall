@@ -9,11 +9,18 @@ import java.awt.*;
 public class Krillin extends Player {
     KeyHandler keyH = new KeyHandler();
     public Krillin(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Krillin", 120, 100,100);
+        super(gp, "Krillin", 120, 100,0);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
         this.facingRight = true;
+    }
+    public Krillin() {
+        super( "Krillin", 120, 100,0);
+    }
+
+    public Krillin(Player Krillin) {
+        super(Krillin);
     }
 
     @Override
@@ -31,10 +38,9 @@ public class Krillin extends Player {
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
             case 1: return 10;
-            case 2: return 25;
-            case 3: return 45;
-            case 4: return -30;
-            case 5: return 0;
+            case 2: return 16;
+            case 3: return 33;
+            case 4: return -50;
             default: return 0;
         }
     }
@@ -42,10 +48,10 @@ public class Krillin extends Player {
     @Override
     public int getSkillDamage(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 12;
-            case 2: return 25;
-            case 3: return 50;
-            case 5: return 8;
+            case 1: return 6;
+            case 2: return 14;
+            case 3: return 24;
+            case 5: return 33;
             default: return 0;
         }
     }

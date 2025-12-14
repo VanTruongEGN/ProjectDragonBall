@@ -42,7 +42,6 @@ public class Goku extends Player {
             case 2: return 25;
             case 3: return 45;
             case 4: return -50;
-            case 5: return 0;
             default: return 0;
         }
     }

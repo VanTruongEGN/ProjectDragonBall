@@ -13,11 +13,18 @@ public class Trunks extends Player {
     private int cooldown = 0;
     ImageIcon trunks;
     public Trunks(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Trunks", 160,100,100);
+        super(gp, "Trunks", 160,100,0);
         this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
         this.y = 360;
         this.color = Color.cyan;
         this.facingRight = false;
+    }
+    public Trunks() {
+        super( "Trunks", 160, 100,0);
+    }
+
+    public Trunks(Player Trunks) {
+        super(Trunks);
     }
 
     @Override
@@ -35,8 +42,7 @@ public class Trunks extends Player {
             case 1: return 11;
             case 2: return 25;
             case 3: return 40;
-            case 4: return -30;
-            case 5: return 0;
+            case 4: return -50;
             default: return 0;
         }
     }
@@ -44,10 +50,10 @@ public class Trunks extends Player {
     @Override
     public int getSkillDamage(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 13;
-            case 2: return 24;
-            case 3: return 48;
-            case 5: return 8;
+            case 1: return 6;
+            case 2: return 13;
+            case 3: return 22;
+            case 5: return 36;
             default: return 0;
         }
     }

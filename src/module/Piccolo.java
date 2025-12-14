@@ -9,11 +9,18 @@ import java.awt.*;
 public class Piccolo extends Player {
     KeyHandler keyH = new KeyHandler();
     public Piccolo(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Piccolo", 180, 100,100);
+        super(gp, "Piccolo", 180, 100,0);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
         this.facingRight = true;
+    }
+    public Piccolo() {
+        super( "Piccolo", 180, 100,0);
+    }
+
+    public Piccolo(Player Piccolo) {
+        super(Piccolo);
     }
 
     @Override
@@ -31,10 +38,9 @@ public class Piccolo extends Player {
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
             case 1: return 10;
-            case 2: return 20;
-            case 3: return 40;
-            case 4: return -30;
-            case 5: return 0;
+            case 2: return 18;
+            case 3: return 30;
+            case 4: return -50;
             default: return 0;
         }
     }
@@ -42,10 +48,10 @@ public class Piccolo extends Player {
     @Override
     public int getSkillDamage(int skillIndex) {
         switch (skillIndex) {
-            case 1: return 12;
-            case 2: return 25;
-            case 3: return 50;
-            case 5: return 8;
+            case 1: return 5;
+            case 2: return 13;
+            case 3: return 34;
+            case 5: return 37;
             default: return 0;
         }
     }

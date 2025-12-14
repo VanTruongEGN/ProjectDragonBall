@@ -150,17 +150,38 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     private void autoAI(){
-        skillIndex = vegeta.strong>=100?5:miniMax.getBestSkill(new GameState(goku,vegeta), 3);
-        System.out.println("skillUsed:"+skillIndex);
-        if(skillIndex==5){
+        if (vegeta.strong >= 100) {
+            skillIndex = 5;
+        } else {
+            GameState root = new GameState(goku, vegeta);
+
+
+            int[] skills = miniMax.skillCanUseInState(root.vegeta);
+            int countSkill = 0;
+            for (int s : skills) {
+                if (s != -1) countSkill++;
+            }
+
+            if (countSkill > 2) {
+                // cây tìm kiếm lớn → dùng Alpha-Beta
+                skillIndex = miniMax.getBestSkillAlphaBeta(root, 3);
+                System.out.println("AI chọn bằng Alpha-Beta, skill: " + skillIndex);
+            } else {
+                // cây nhỏ → dùng Minimax
+                skillIndex = miniMax.getBestSkill(root, 3);
+                System.out.println("AI chọn bằng Minimax, skill: " + skillIndex);
+            }
+        }
+
+        if (skillIndex == 5) {
             vegeta.resetStrongRatio();
         }
         if (vegeta.canUseSkill(skillIndex)) {
-
             Projectile p = vegeta.useSkill(skillIndex, goku);
             if (p != null) projectiles.add(p);
         }
     }
+
     private void switchTurn() {
         gokuTurn = !gokuTurn;
         keyH.getSkillPressed();

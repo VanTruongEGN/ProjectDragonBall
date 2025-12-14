@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GameState {
     Player goku;
-    Player vegeta;
+    public Player vegeta;
     ArrayList<GameState> listState;
     int skillIndex;
     public GameState(Player goku, Player vegeta,  int skillIndex) {

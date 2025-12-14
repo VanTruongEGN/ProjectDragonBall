@@ -1,12 +1,31 @@
 package AI;
 
-import module.Goku;
-import module.Player;
-import module.Vegeta;
+import module.*;
 
 import java.util.Arrays;
 
 public class AlpheBeta {
+    public Player createPlayer(Player player) {
+        if(player instanceof Vegeta){
+            return new Vegeta(player);
+        }
+        if(player instanceof Goku){
+            return new Goku(player);
+        }
+        if(player instanceof Gohan){
+            return  new Gohan(player);
+        }
+        if (player instanceof Krillin) {
+            return new Krillin(player);
+        }
+        if (player instanceof Piccolo) {
+            return new Piccolo(player);
+        }
+        if (player instanceof Trunks) {
+            return new Trunks(player);
+        }
+        return null;
+    }
 
     public int[] skillCanUseInState(Player player) {
         int[] skill = new int[5];
@@ -46,8 +65,8 @@ public class AlpheBeta {
             // sinh nhánh
             for (int skill : skillCanUseInState(node.vegeta)) {
                 if (skill != -1) {
-                    Player vegeta = new Vegeta(node.vegeta);
-                    Player goku = new Goku(node.goku);
+                    Player vegeta = createPlayer(node.vegeta);
+                    Player goku = createPlayer(node.goku);
 
                     vegeta.setManaUse(vegeta.mana - vegeta.getManaCost(skill));
                     vegeta.setStrong();
@@ -68,8 +87,8 @@ public class AlpheBeta {
 
             for (int skill : skillCanUseInState(node.goku)) {
                 if (skill != -1) {
-                    Player goku = new Goku(node.goku);
-                    Player vegeta = new Vegeta(node.vegeta);
+                    Player goku = createPlayer(node.goku);
+                    Player vegeta = createPlayer(node.vegeta);
 
                     goku.setManaUse(goku.mana - goku.getManaCost(skill));
                     goku.setStrong();
@@ -94,9 +113,8 @@ public class AlpheBeta {
 
         for (int skill : skillCanUseInState(root.vegeta)) {
             if (skill != -1) {
-                Player vegeta = new Vegeta(root.vegeta);
-                Player goku = new Goku(root.goku);
-
+                Player vegeta = createPlayer(root.vegeta);
+                Player goku = createPlayer(root.goku);
                 vegeta.setManaUse(vegeta.mana - vegeta.getManaCost(skill));
                 vegeta.setStrong();
                 vegeta.strong = Math.min(vegeta.strong, vegeta.maxStrong);

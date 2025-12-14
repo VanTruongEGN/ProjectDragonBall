@@ -1,8 +1,6 @@
 package AI;
 
-import module.Goku;
-import module.Player;
-import module.Vegeta;
+import module.*;
 
 import java.util.Arrays;
 
@@ -10,7 +8,27 @@ public class MiniMax {
     public static GameState current;
     public MiniMax() {
     }
-
+    public Player createPlayer(Player player) {
+        if(player instanceof Vegeta){
+            return new Vegeta(player);
+        }
+        if(player instanceof Goku){
+            return new Goku(player);
+        }
+        if(player instanceof Gohan){
+            return  new Gohan(player);
+        }
+        if (player instanceof Krillin) {
+            return new Krillin(player);
+        }
+        if (player instanceof Piccolo) {
+            return new Piccolo(player);
+        }
+        if (player instanceof Trunks) {
+            return new Trunks(player);
+        }
+        return null;
+    }
     public int[] skillCanUseInState(Player player) {
         int[] skill = new int[5];
         Arrays.fill(skill, -1);
@@ -50,8 +68,8 @@ public class MiniMax {
             int temp = -99999999;
             for (int skill : skillCanUseInState(node.vegeta)) {
                 if (skill != -1) {
-                    vegeta = new Vegeta(node.vegeta);
-                    goku = new Goku(node.goku);
+                    vegeta = createPlayer(node.vegeta);
+                    goku = createPlayer(node.goku);
                     int manaV = vegeta.mana - vegeta.getManaCost(skill);
                     vegeta.setManaUse(manaV);
                     vegeta.setStrong();
@@ -73,8 +91,8 @@ public class MiniMax {
             int temp = 99999999;
             for (int skill : skillCanUseInState(node.goku)) {
                 if (skill != -1) {
-                    goku = new Goku(node.goku);
-                    vegeta = new Vegeta(node.vegeta);
+                    goku = createPlayer(node.goku);
+                    vegeta = createPlayer(node.vegeta);
                     int manaG = goku.mana - goku.getManaCost(skill);
                     goku.setManaUse(manaG);
                     goku.setStrong();

@@ -1,5 +1,6 @@
 package view;
 
+import AI.AlpheBeta;
 import AI.GameState;
 import AI.Greedy;
 import AI.MiniMax;
@@ -28,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     Greedy greedy = new Greedy();
     boolean gameOver = false;
     MiniMax miniMax = new MiniMax();
+    AlpheBeta alpheBeta = new AlpheBeta();
 
     ArrayList<Projectile> projectiles = new ArrayList<>();
 
@@ -155,7 +157,6 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             GameState root = new GameState(goku, vegeta);
 
-
             int[] skills = miniMax.skillCanUseInState(root.vegeta);
             int countSkill = 0;
             for (int s : skills) {
@@ -164,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (countSkill > 2) {
                 // cây tìm kiếm lớn → dùng Alpha-Beta
-                skillIndex = miniMax.getBestSkillAlphaBeta(root, 3);
+                skillIndex = alpheBeta.getBestSkillAlphaBeta(root, 3);
                 System.out.println("AI chọn bằng Alpha-Beta, skill: " + skillIndex);
             } else {
                 // cây nhỏ → dùng Minimax
@@ -218,6 +219,20 @@ public class GamePanel extends JPanel implements Runnable {
         String turnText = gokuTurn ? "Turn: GOKU (You)" : "Turn: VEGETA (AI)";
         g2.drawString(turnText, screenWidth / 2 - 70, 30);
 
+        //skill
+        if(gokuTurn && skillIndex !=0){
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            g2.setColor(Color.lightGray);
+            String result = goku.getName() + "\tdùng skill: " + goku.getSkillName(skillIndex);
+            g2.drawString(result, screenWidth / 2 - 200, screenHeight / 2 +100);
+        }
+
+        if (!gokuTurn && gameThread != null ) {
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            g2.setColor(Color.lightGray);
+            String result = vegeta.getName() + "\tdùng skill: " + vegeta.getSkillName(skillIndex);
+            g2.drawString(result, screenWidth / 2 - 200, screenHeight / 2 +100);
+        }
         // if game stopped due to win, display result
         if (gameThread == null) {
             g2.setFont(new Font("Arial", Font.BOLD, 100));
@@ -225,6 +240,7 @@ public class GamePanel extends JPanel implements Runnable {
             String result = (goku.hp <= 0) ? "K.O!" : "WINS!";
             g2.drawString(result, screenWidth / 2-100, screenHeight / 2);
         }
+
         g2.dispose();
     }
 
@@ -328,5 +344,4 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public int getTileSize() { return tileSize; }
 }

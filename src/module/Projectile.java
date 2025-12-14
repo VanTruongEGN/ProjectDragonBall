@@ -39,21 +39,24 @@ public class Projectile {
         ImageIcon skill=null;
         if(skillIndex==1){
              skill = new ImageIcon("src/assets/player/goku/skill10.png");
+            g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
         }
         if(skillIndex==2){
              skill = new ImageIcon("src/assets/player/goku/skill8.png");
+            g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
         }
         if(skillIndex==3){
              skill = new ImageIcon("src/assets/player/goku/skill9.png");
+            g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
         }
         if(skillIndex==4){
             skill = new ImageIcon("src/assets/player/goku/skill5.png");
+            g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
         }
         if(skillIndex==5){
             skill = new ImageIcon("src/assets/player/goku/skill11.png");
+            g2.drawImage(skill.getImage(), x, y-100, width*10, height*10, null);
         }
-
-        g2.drawImage(skill.getImage(), x, y-20, width*4, height*4, null);
     }
     public boolean isDestroyed() { return destroyed; }
 }

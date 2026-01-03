@@ -14,7 +14,7 @@ public abstract class Player {
     public int strong;
     public int maxStrong;
     protected Color color;
-    protected boolean facingRight;
+    public boolean facingRight;
     protected String name;
     protected int width =18;
     protected int height =18;

@@ -7,105 +7,92 @@ import java.awt.*;
 
 public class CharacterSelectPanel extends JPanel implements Runnable {
 
-    private final int tileSize = 130; // kích thước mỗi ô nhân vật
-    private final int cols = 3;       // 3 cột
-    private final int rows = 2;       // 2 hàng
+    private final int tileSize = 130;
+    private final int cols = 3;
+    private final int rows = 2;
     private final int screenWidth = 800;
     private final int screenHeight = 600;
-    private boolean selectingOpponent = false;
-    // 6 ảnh nhân vật tách riêng
-    private Image char1;
-    private Image char2;
-    private Image char3;
-    private Image char4;
-    private Image char5;
-    private Image char6;
 
+    private boolean selectingOpponent = false;
+    private String selectedPlayer = null;
+
+    private Image[][] characters;
     private Image background;
-    private Image[][] characters; // 6 nhân vật
+
     private int selectedRow = 0;
     private int selectedCol = 0;
 
     private Thread gameThread;
     private CharacterSelectController controller;
-    private float glowAlpha = 0f; // hiệu ứng sáng viền
+    private float glowAlpha = 0f;
+
     private String[][] characterNames = {
-            { "Goku", "Vegeta", "Gohan" },
-            { "Piccolo", "Krillin", "Trunks" }
+            {"Goku", "Vegeta", "Gohan"},
+            {"Piccolo", "Krillin", "Trunks"}
     };
 
-
     public CharacterSelectPanel(JFrame frame) {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
-        this.setFocusable(true);
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setDoubleBuffered(true);
+        setFocusable(true);
 
-        // Controller
         controller = new CharacterSelectController(this, frame);
-        this.addKeyListener(controller);
+        addKeyListener(controller);
 
-        // Background
         background = new ImageIcon("src/assets/map/img_1.png").getImage();
 
-
-        // Load 6 ảnh nhân vật riêng
-        char1 = new ImageIcon("src/assets/select/img_6.png").getImage();
-        char2 = new ImageIcon("src/assets/select/img_7.png").getImage();
-        char3 = new ImageIcon("src/assets/select/img_4.png").getImage();
-        char4 = new ImageIcon("src/assets/select/img_8.png").getImage();
-        char5 = new ImageIcon("src/assets/select/img_9.png").getImage();
-        char6 = new ImageIcon("src/assets/select/img_5.png").getImage();
-
-        // Nhét vào grid 2×3
         characters = new Image[][]{
-                { char1, char2, char3 },
-                { char4, char5, char6 }
+                { new ImageIcon("src/assets/select/img_6.png").getImage(),
+                        new ImageIcon("src/assets/select/img_7.png").getImage(),
+                        new ImageIcon("src/assets/select/img_4.png").getImage() },
+
+                { new ImageIcon("src/assets/select/img_8.png").getImage(),
+                        new ImageIcon("src/assets/select/img_9.png").getImage(),
+                        new ImageIcon("src/assets/select/img_5.png").getImage() }
         };
+
+        startThread();
     }
-    public String getCharacterName(int row, int col) {
-        return characterNames[row][col];
-    }
-
-
-
-    public void toggleOpponentSelection() {
-        selectingOpponent = !selectingOpponent;
-    }
-
-    public boolean isSelectingOpponent() {
-        return selectingOpponent;
-    }
-
 
     public void startThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    public boolean isSelectingOpponent() {
+        return selectingOpponent;
+    }
+
+    public void confirmSelection() {
+        String chosen = characterNames[selectedRow][selectedCol];
+
+        if (!selectingOpponent) {
+            selectedPlayer = chosen;
+            selectingOpponent = true;
+            selectedRow = selectedCol = 0;
+        } else {
+            controller.startGame(selectedPlayer, chosen);
+        }
+    }
+
+    public String getTitleText() {
+        return selectingOpponent ? "SELECT OPPONENT" : "SELECT YOUR FIGHTER";
+    }
+
+    public void moveUp() { selectedRow = (selectedRow + rows - 1) % rows; }
+    public void moveDown() { selectedRow = (selectedRow + 1) % rows; }
+    public void moveLeft() { selectedCol = (selectedCol + cols - 1) % cols; }
+    public void moveRight() { selectedCol = (selectedCol + 1) % cols; }
+
     @Override
     public void run() {
-        double drawInterval = 1000000000.0 / 60;
-        double nextDrawTime = System.nanoTime() + drawInterval;
-        boolean increase = true;
-
-        while (gameThread != null) {
-            // hiệu ứng sáng nhấp nháy
-            glowAlpha += increase ? 0.05f : -0.05f;
-            if (glowAlpha >= 1f) increase = false;
-            if (glowAlpha <= 0f) increase = true;
-
+        boolean inc = true;
+        while (true) {
+            glowAlpha += inc ? 0.05f : -0.05f;
+            if (glowAlpha >= 1f) inc = false;
+            if (glowAlpha <= 0f) inc = true;
             repaint();
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime /= 1000000;
-                if (remainingTime < 0) remainingTime = 0;
-                Thread.sleep((long) remainingTime);
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            try { Thread.sleep(16); } catch (Exception ignored) {}
         }
     }
 
@@ -114,96 +101,34 @@ public class CharacterSelectPanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        if (background != null) {
-            g2.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+        g2.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 
-        } else {
-            g2.setColor(Color.black);
-            g2.fillRect(0, 0, screenWidth, screenHeight);
-        }
-        String title = "SELECT YOUR FIGHTER";
-        g2.setFont(new Font("PressStart2P-Regular", Font.BOLD, 32));
-        int titleX = getXforCenteredText(title, g2);
-        g2.setColor(new Color(0, 0, 0, 180));
-        g2.drawString(title, titleX-80 + 3, 80 + 3);
-        g2.setColor(new Color(255, 200, 60));
-        g2.drawString(title, titleX -80, 80);
-        g2.fillRect(titleX -80, 88, (int) g2.getFontMetrics().getStringBounds(title, g2).getWidth(), 3);
-
+        g2.setFont(new Font("PressStart2P-Regular", Font.BOLD, 30));
+        g2.setColor(Color.yellow);
+        g2.drawString(getTitleText(), 180, 60);
 
         int gap = 70;
-        int totalWidth = cols * tileSize + (cols - 1) * gap;
-        int totalHeight = rows * tileSize + (rows - 1) * gap;
+        int startX = 80;
+        int startY = 120;
 
-        int startX = (screenWidth - totalWidth) /2 -80;
-        int startY = (screenHeight - totalHeight) / 2 - 20;
-
-        // Vẽ từng nhân vật
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int x = startX + j * (tileSize + gap);
                 int y = startY + i * (tileSize + gap);
-                // Nền ô nhân vật
-                g2.setColor(Color.gray);
-                g2.fillRoundRect(x, y, tileSize, tileSize, 15, 15);
 
-                // Ảnh nhân vật
-                if (characters[i][j] != null) {
-                    int imgSize = tileSize - 10;
-                    g2.drawImage(characters[i][j], x + 5, y + 5, imgSize, imgSize, null);
-                }
+                g2.setColor(Color.darkGray);
+                g2.fillRoundRect(x, y, tileSize, tileSize, 20, 20);
+                g2.drawImage(characters[i][j], x + 5, y + 5, tileSize - 10, tileSize - 10, null);
 
-                // Viền trắng
                 g2.setColor(Color.white);
-                g2.setStroke(new BasicStroke(2));
-                g2.drawRoundRect(x, y, tileSize, tileSize, 15, 15);
+                g2.drawRoundRect(x, y, tileSize, tileSize, 20, 20);
 
-                // Ô đang chọn — hiệu ứng sáng vàng
                 if (i == selectedRow && j == selectedCol) {
-                    int glow = (int) (150 + 100 * glowAlpha);
-                    g2.setColor(new Color(255, 220, 0, glow));
                     g2.setStroke(new BasicStroke(5));
-                    g2.drawRoundRect(x - 4, y - 4, tileSize + 8, tileSize + 8, 18, 18);
+                    g2.setColor(new Color(255, 215, 0, (int)(200 * glowAlpha)));
+                    g2.drawRoundRect(x - 4, y - 4, tileSize + 8, tileSize + 8, 25, 25);
                 }
             }
         }
-
-        g2.setFont(new Font("PressStart2P-Regular", Font.PLAIN, 18));
-        g2.setColor(Color.white);
-
-    }
-
-    private int getXforCenteredText(String text, Graphics2D g2) {
-        int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        return screenWidth / 2 - length / 2;
-    }
-
-    // Điều khiển chọn nhân vật
-    public void moveUp() {
-        selectedRow--;
-        if (selectedRow < 0) selectedRow = rows - 1;
-    }
-
-    public void moveDown() {
-        selectedRow++;
-        if (selectedRow >= rows) selectedRow = 0;
-    }
-
-    public void moveLeft() {
-        selectedCol--;
-        if (selectedCol < 0) selectedCol = cols - 1;
-    }
-
-    public void moveRight() {
-        selectedCol++;
-        if (selectedCol >= cols) selectedCol = 0;
-    }
-
-    public int getSelectedRow() {
-        return selectedRow;
-    }
-
-    public int getSelectedCol() {
-        return selectedCol;
     }
 }

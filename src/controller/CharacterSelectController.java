@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 
 public class CharacterSelectController implements KeyListener {
 
-
     private final CharacterSelectPanel view;
     private final JFrame frame;
 
@@ -19,38 +18,27 @@ public class CharacterSelectController implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
     public void keyPressed(KeyEvent e) {
-        int code = e.getKeyCode();
-
-        switch (code) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_W, KeyEvent.VK_UP -> view.moveUp();
             case KeyEvent.VK_S, KeyEvent.VK_DOWN -> view.moveDown();
             case KeyEvent.VK_A, KeyEvent.VK_LEFT -> view.moveLeft();
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> view.moveRight();
-            case KeyEvent.VK_ENTER -> selectCharacter();
+            case KeyEvent.VK_ENTER -> view.confirmSelection();
         }
-
         view.repaint();
     }
 
-    private void selectCharacter() {
-        int row = view.getSelectedRow();
-        int col = view.getSelectedCol();
-        String selectedCharacter = view.getCharacterName(row, col);
-
+    public void startGame(String player, String opponent) {
         frame.getContentPane().removeAll();
-        GamePanel gamePanel = new GamePanel(selectedCharacter); // truyền tên nhân vật
-        frame.add(gamePanel);
+        GamePanel gp = new GamePanel(player, opponent, frame);
+        frame.add(gp);
         frame.revalidate();
         frame.repaint();
-        gamePanel.setFocusable(true);
-        gamePanel.requestFocusInWindow();
-        gamePanel.startGameThread();
+        gp.requestFocusInWindow();
+        gp.startGameThread();
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {}
+    @Override public void keyTyped(KeyEvent e) {}
+    @Override public void keyReleased(KeyEvent e) {}
 }

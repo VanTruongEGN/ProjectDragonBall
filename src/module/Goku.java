@@ -7,34 +7,54 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Goku extends Player {
+
     KeyHandler keyH = new KeyHandler();
+    private Image gokuImg;
+
     public Goku(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Goku", 120, 100,0);
+        super(gp, "Goku", 120, 100, 0);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
         this.facingRight = true;
+
+        // 🔥 LOAD ẢNH 1 LẦN
+        gokuImg = new ImageIcon("src/assets/player/goku/hinh.png").getImage();
     }
+
     public Goku() {
-        super( "Goku", 120, 100,0);
+        super("Goku", 120, 100, 0);
+        gokuImg = new ImageIcon("src/assets/player/goku/hinh.png").getImage();
     }
 
     public Goku(Player goku) {
         super(goku);
+        gokuImg = new ImageIcon("src/assets/player/goku/hinh.png").getImage();
     }
 
-
+    // ================= DRAW =================
     @Override
     public void draw(Graphics2D g2) {
-        ImageIcon goku = new ImageIcon("src/assets/player/goku/hinh.png");
-        g2.setColor(color);
-        g2.drawImage(goku.getImage(), x, y,width*3,height*4, null);
-        // name
-        g2.setColor(Color.white);
 
+        int drawW = width * 3;
+        int drawH = height * 4;
+
+        if (facingRight) {
+            g2.drawImage(gokuImg, x, y, drawW, drawH, null);
+        } else {
+            // 🔥 LẬT ẢNH NGANG
+            g2.drawImage(
+                    gokuImg,
+                    x + drawW,   // dịch sang phải
+                    y,
+                    -drawW,      // width âm => lật ảnh
+                    drawH,
+                    null
+            );
+        }
     }
 
-
+    // ================= SKILL =================
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
@@ -68,5 +88,4 @@ public class Goku extends Player {
             default: return "";
         }
     }
-
 }

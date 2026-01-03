@@ -7,35 +7,64 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-
 public class Trunks extends Player {
+
     private Random rand = new Random();
     private int cooldown = 0;
-    ImageIcon trunks;
+    private Image trunksImg;
+
     public Trunks(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Trunks", 160,100,0);
-        this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
+        super(gp, "Trunks", 160, 100, 0);
+
+        // spawn bên phải
+        this.x = gp.getWidth() + 60;
         this.y = 360;
         this.color = Color.cyan;
         this.facingRight = false;
+
+        // 🔥 LOAD ẢNH 1 LẦN
+        trunksImg = new ImageIcon(
+                "src/assets/player/trunks/trunks.png"
+        ).getImage();
     }
+
     public Trunks() {
-        super( "Trunks", 160, 100,0);
+        super("Trunks", 160, 100, 0);
+        trunksImg = new ImageIcon(
+                "src/assets/player/trunks/trunks.png"
+        ).getImage();
     }
 
-    public Trunks(Player Trunks) {
-        super(Trunks);
+    public Trunks(Player trunks) {
+        super(trunks);
+        trunksImg = new ImageIcon(
+                "src/assets/player/trunks/trunks.png"
+        ).getImage();
     }
 
+    // ================= DRAW =================
     @Override
     public void draw(Graphics2D g2) {
-        trunks= new ImageIcon("src/assets/player/trunks/trunks.png");
-        g2.setColor(color);
-        g2.drawImage(trunks.getImage(), x, y,width*4,height*4, null);
-        g2.setColor(Color.white);
 
+        int drawW = width * 4;
+        int drawH = height * 4;
+
+        if (facingRight) {
+            g2.drawImage(trunksImg, x, y, drawW, drawH, null);
+        } else {
+            // 🔥 LẬT ẢNH NGANG
+            g2.drawImage(
+                    trunksImg,
+                    x + drawW,
+                    y,
+                    -drawW,
+                    drawH,
+                    null
+            );
+        }
     }
 
+    // ================= SKILL =================
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
@@ -69,5 +98,4 @@ public class Trunks extends Player {
             default: return "";
         }
     }
-
 }

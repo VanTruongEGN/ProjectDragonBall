@@ -7,33 +7,60 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Krillin extends Player {
+
     KeyHandler keyH = new KeyHandler();
+    private Image krillinImg;
+
     public Krillin(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Krillin", 120, 100,0);
+        super(gp, "Krillin", 120, 100, 0);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
         this.facingRight = true;
+
+        // 🔥 LOAD ẢNH 1 LẦN
+        krillinImg = new ImageIcon(
+                "src/assets/player/krillin/Thiết kế chưa có tên (37).png"
+        ).getImage();
     }
+
     public Krillin() {
-        super( "Krillin", 120, 100,0);
+        super("Krillin", 120, 100, 0);
+        krillinImg = new ImageIcon(
+                "src/assets/player/krillin/Thiết kế chưa có tên (37).png"
+        ).getImage();
     }
 
-    public Krillin(Player Krillin) {
-        super(Krillin);
+    public Krillin(Player krillin) {
+        super(krillin);
+        krillinImg = new ImageIcon(
+                "src/assets/player/krillin/Thiết kế chưa có tên (37).png"
+        ).getImage();
     }
 
+    // ================= DRAW =================
     @Override
     public void draw(Graphics2D g2) {
-        ImageIcon Krillin = new ImageIcon("src/assets/player/krillin/Thiết kế chưa có tên (37).png");
-        g2.setColor(color);
-        g2.drawImage(Krillin.getImage(), x, y,width*3,height*4, null);
-        // name
-        g2.setColor(Color.white);
 
+        int drawW = width * 3;
+        int drawH = height * 4;
+
+        if (facingRight) {
+            g2.drawImage(krillinImg, x, y, drawW, drawH, null);
+        } else {
+            // 🔥 LẬT ẢNH NGANG
+            g2.drawImage(
+                    krillinImg,
+                    x + drawW,
+                    y,
+                    -drawW,
+                    drawH,
+                    null
+            );
+        }
     }
 
-
+    // ================= SKILL =================
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {
@@ -68,4 +95,3 @@ public class Krillin extends Player {
         }
     }
 }
-

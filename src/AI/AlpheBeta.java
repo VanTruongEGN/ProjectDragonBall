@@ -133,4 +133,27 @@ public class AlpheBeta {
         }
         return bestSkill;
     }
+
+    public static void main(String[] args) {
+        AlpheBeta minimax = new AlpheBeta();
+        Player goku = new Goku();
+        Player vegeta = new Vegeta();
+
+        for (int i = 1; i < 11; i++) {
+//            System.out.println("depth: "+i);
+            Runtime runtime = Runtime.getRuntime();
+            runtime.gc();
+
+            long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+            long startTime = System.nanoTime();
+
+            int result = minimax.minimaxAlphaBeta(true, new GameState(goku, vegeta), i,-99999999, 99999999);
+
+            long endTime = System.nanoTime();
+            long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+
+            System.out.println("Execution time (ms): " + (endTime - startTime) / 1_000_000.0);
+            System.out.println("Memory used (KB): " + (memoryAfter - memoryBefore) / 1024.0);
+        }
+    }
 }

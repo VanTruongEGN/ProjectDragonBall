@@ -21,7 +21,7 @@ public class RegisterPanel extends JPanel implements Runnable {
          // Font pixel
         titleFont = new Font("PressStart2P-Regular", Font.BOLD, 60);
         menuFont = new Font("PressStart2P-Regular", Font.PLAIN, 30);
-        character = new ImageIcon("src/assets/player/hinh.png").getImage();
+        character = new ImageIcon("src/assets/player/hinh1.png").getImage();
         background = new ImageIcon("src/assets/map/img.png").getImage(); }
 
     public void startGameThread() {

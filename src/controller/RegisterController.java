@@ -2,11 +2,10 @@ package controller;
 
 import view.CharacterSelectPanel;
 import view.RegisterPanel;
-import view.GamePanel;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 
 public class RegisterController implements KeyListener {
 
@@ -27,9 +26,11 @@ public class RegisterController implements KeyListener {
 
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             view.moveUp();
-        } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+        }
+        else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             view.moveDown();
-        } else if (code == KeyEvent.VK_ENTER) {
+        }
+        else if (code == KeyEvent.VK_ENTER) {
             selectOption();
         }
 
@@ -40,35 +41,33 @@ public class RegisterController implements KeyListener {
         String option = view.getSelectedOption();
 
         switch (option) {
-            case "NEW GAME":
+
+            case "NEW GAME" -> {
                 System.out.println("Starting new game...");
-                // Chuyển sang GamePanel
+
                 frame.getContentPane().removeAll();
-                CharacterSelectPanel CPanel = new CharacterSelectPanel(frame);
-                frame.add(CPanel);
+
+                CharacterSelectPanel selectPanel = new CharacterSelectPanel(frame);
+                frame.add(selectPanel);
+
                 frame.revalidate();
                 frame.repaint();
-                CPanel.setFocusable(true);
-                CPanel.requestFocusInWindow();
-//                CPanel.startGameThread();
-                break;
 
-            case "LOAD GAME":
-                System.out.println("Loading game...");
-                frame.getContentPane().removeAll();
-                // Nếu muốn mặc định load Goku (row=0, col=0)
-                GamePanel gamePanel = new GamePanel();
-                frame.add(gamePanel);
-                frame.revalidate();
-                frame.repaint();
-                gamePanel.setFocusable(true);
-                gamePanel.requestFocusInWindow();
-                gamePanel.startGameThread();
-                break;
+                selectPanel.setFocusable(true);
+                selectPanel.requestFocusInWindow();
+            }
 
-            case "QUIT":
-                System.exit(0);
-                break;
+            case "LOAD GAME" -> {
+                // Nếu CHƯA làm save/load → chặn lại cho đỡ lỗi
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "Load Game chưa được hỗ trợ!",
+                        "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+
+            case "QUIT" -> System.exit(0);
         }
     }
 

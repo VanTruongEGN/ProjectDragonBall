@@ -12,6 +12,7 @@ public class GameFrame extends JFrame {
         this.setResizable(false);
         this.setTitle("Game2D");
 
+
         RegisterPanel registerPanel = new RegisterPanel(this);
         this.add(registerPanel);
         this.pack();

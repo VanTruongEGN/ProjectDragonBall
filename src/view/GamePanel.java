@@ -9,88 +9,92 @@ import module.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable, KeyListener {
 
+    // ================= SCREEN =================
     public final int tileSize = 59;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 768
-    final int screenHeight = tileSize * maxScreenRow; // 576
+    final int screenWidth = tileSize * maxScreenCol;
+    final int screenHeight = tileSize * maxScreenRow;
+
+    // ================= CORE =================
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
-    int skillIndex = 0;
-    Player goku;
-    Player vegeta;
+
+    public Player goku;    // PLAYER (LEFT)
+    public Player vegeta;  // OPPONENT (RIGHT)
+
     Image background;
-    Greedy greedy = new Greedy();
+    public ArrayList<Projectile> projectiles = new ArrayList<>();
+
+    // ================= GAME STATE =================
+    public boolean gokuTurn = true;
     boolean gameOver = false;
+    int skillIndex = 0;
+
+    // ================= AI =================
+    Greedy greedy = new Greedy();
     MiniMax miniMax = new MiniMax();
     AlpheBeta alpheBeta = new AlpheBeta();
 
-    ArrayList<Projectile> projectiles = new ArrayList<>();
+    // ================= FRAME =================
+    private JFrame frame;
 
-    // turn-based
-    private boolean gokuTurn = true;
-    private boolean waitingProjectiles = false; // true while projectiles are active
+    // ================= CONSTRUCTOR =================
+    public GamePanel(String playerName, String opponentName, JFrame frame) {
+        this.frame = frame;
 
-    public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
-        // create players
-        goku = new Goku(this, keyH);
-        vegeta = new Vegeta(this, keyH);
-        // place vegeta at right side properly
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setBackground(Color.black);
+        setDoubleBuffered(true);
+        setFocusable(true);
+
+        addKeyListener(keyH);
+        addKeyListener(this);
+
+        // ===== CREATE PLAYER =====
+        goku = createPlayer(playerName);
+        vegeta = createPlayer(opponentName);
+
+        goku.x = 120;
         vegeta.x = screenWidth - 160;
+        vegeta.facingRight = false;
 
         background = new ImageIcon("src/assets/map/map1.jpg").getImage();
     }
 
-    public GamePanel(String selectedCharacter) {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
-
-        // Người chơi chính (bên trái)
-        switch (selectedCharacter) {
-            case "Goku" -> {
-                goku = new Goku(this, keyH);
-            }
-            case "Vegeta" -> goku = new Vegeta(this, keyH);
-            case "Trunks" -> goku = new Trunks(this, keyH);
-            case "Gohan" -> goku = new Gohan(this, keyH);
-            case "Piccolo" -> goku = new Piccolo(this, keyH);
-            case "Krillin" -> goku = new Krillin(this, keyH);
-            default -> goku = new Goku(this, keyH);
-        }
-
-        // Đối thủ mặc định (bên phải)
-        vegeta = new Vegeta(this, keyH);
-        vegeta.x = screenWidth - 160;
-
-        background = new ImageIcon("src/assets/map/map1.jpg").getImage();
+    private Player createPlayer(String name) {
+        return switch (name) {
+            case "Vegeta" -> new Vegeta(this, keyH);
+            case "Trunks" -> new Trunks(this, keyH);
+            case "Gohan" -> new Gohan(this, keyH);
+            case "Piccolo" -> new Piccolo(this, keyH);
+            case "Krillin" -> new Krillin(this, keyH);
+            default -> new Goku(this, keyH);
+        };
     }
 
-
+    // ================= THREAD =================
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     public void run() {
-        double drawInterval = 1000000000.0 / 60; // 60 FPS
+        double drawInterval = 1000000000.0 / 60;
         double nextDrawTime = System.nanoTime() + drawInterval;
+
         while (gameThread != null) {
             update();
             repaint();
+
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
@@ -102,161 +106,134 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+
+    // ================= UPDATE =================
     public void update() {
-        // if there are active projectiles, update them
+        if (gameOver) return;
+
+        // ===== UPDATE PROJECTILES =====
         if (!projectiles.isEmpty()) {
-            waitingProjectiles = true;
             Iterator<Projectile> it = projectiles.iterator();
             while (it.hasNext()) {
                 Projectile p = it.next();
                 p.update();
                 if (p.isDestroyed()) it.remove();
-                if (!p.isDestroyed()) break;
             }
-            // if all projectiles finished -> switch turn and regen mana for next player
-            if (projectiles.isEmpty()) {
-                waitingProjectiles = false;
-                switchTurn();
-            }
-            return; // while projectiles active, skip accepting new inputs
+            return;
         }
+
+        // ===== PLAYER TURN =====
         if (gokuTurn) {
-            // check input from key handler
-            skillIndex = keyH.getSkillPressed();// returns 0..3 and resets
-            if(skillIndex == 5 && goku.strong <100){
-                skillIndex=0;
-            }
-            if (skillIndex != 0) {
-                if(skillIndex == 5) {
-                    goku.resetStrongRatio();
-                }
-                if (goku.canUseSkill(skillIndex) && gokuTurn) {
-                    Projectile p = goku.useSkill(skillIndex, vegeta);
-                    if (p != null) projectiles.add(p);
-                    if(p==null){
-                        switchTurn();
-                        return;
-                    }
-                }
+            skillIndex = keyH.getSkillPressed();
+
+            if (skillIndex == 5 && goku.strong < 100) skillIndex = 0;
+
+            if (skillIndex != 0 && goku.canUseSkill(skillIndex)) {
+                if (skillIndex == 5) goku.resetStrongRatio();
+                Projectile p = goku.useSkill(skillIndex, vegeta);
+                if (p != null) projectiles.add(p);
+                gokuTurn = false;
             }
         }
-        else{
+        // ===== AI TURN =====
+        else {
             autoAI();
-
+            gokuTurn = true;
         }
 
-        // check win condition
+        // ===== CHECK WIN =====
         if (goku.hp <= 0 || vegeta.hp <= 0) {
-            gameThread = null;
             gameOver = true;
+            gameThread = null;
         }
     }
-    private void autoAI(){
+
+    // ================= AI =================
+    private void autoAI() {
         if (vegeta.strong >= 100) {
             skillIndex = 5;
         } else {
             GameState root = new GameState(goku, vegeta);
-
-            int[] skills = miniMax.skillCanUseInState(root.vegeta);
-            int countSkill = 0;
-            for (int s : skills) {
-                if (s != -1) countSkill++;
-            }
-
-            if (countSkill > 2) {
-                // cây tìm kiếm lớn → dùng Alpha-Beta
-                skillIndex = alpheBeta.getBestSkillAlphaBeta(root, 3);
-                System.out.println("AI chọn bằng Alpha-Beta, skill: " + skillIndex);
-            } else {
-                // cây nhỏ → dùng Minimax
-                skillIndex = miniMax.getBestSkill(root, 3);
-                System.out.println("AI chọn bằng Minimax, skill: " + skillIndex);
-            }
+            skillIndex = alpheBeta.getBestSkillAlphaBeta(root, 3);
         }
 
-        if (skillIndex == 5) {
-            vegeta.resetStrongRatio();
-        }
+        if (skillIndex == 5) vegeta.resetStrongRatio();
+
         if (vegeta.canUseSkill(skillIndex)) {
             Projectile p = vegeta.useSkill(skillIndex, goku);
             if (p != null) projectiles.add(p);
         }
     }
 
-    private void switchTurn() {
-        gokuTurn = !gokuTurn;
-        keyH.getSkillPressed();
-        // mana regen for the player whose turn just started
-    }
-
+    // ================= DRAW =================
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // draw background (if missing image, it's fine)
-        if (background != null) g2.drawImage(background, 0, 0, screenWidth, screenHeight, null);
-        else {
-            g2.setColor(Color.darkGray);
-            g2.fillRect(0, 0, screenWidth, screenHeight);
-        }
+        if (background != null)
+            g2.drawImage(background, 0, 0, screenWidth, screenHeight, null);
 
-        // draw players
         goku.draw(g2);
         vegeta.draw(g2);
 
-        // draw projectiles
         for (Projectile p : projectiles) {
-            p.draw(g2,skillIndex);
+            p.draw(g2, skillIndex);
         }
 
-        // draw HUD
         drawStatusBar(g2);
 
-        // draw turn indicator
+        // ===== TURN =====
         g2.setFont(new Font("Arial", Font.BOLD, 16));
         g2.setColor(Color.white);
-        String turnText = gokuTurn ? "Turn: GOKU (You)" : "Turn: VEGETA (AI)";
-        g2.drawString(turnText, screenWidth / 2 - 70, 30);
+        g2.drawString(
+                gokuTurn ? "Turn: PLAYER" : "Turn: AI",
+                screenWidth / 2 - 60,
+                30
+        );
 
-        //skill
-        if(gokuTurn && skillIndex !=0){
-            g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.setColor(Color.lightGray);
-            String result = goku.getName() + "\tdùng skill: " + goku.getSkillName(skillIndex);
-            g2.drawString(result, screenWidth / 2 - 200, screenHeight / 2 +100);
-        }
-
-        if (!gokuTurn && gameThread != null ) {
-            g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.setColor(Color.lightGray);
-            String result = vegeta.getName() + "\tdùng skill: " + vegeta.getSkillName(skillIndex);
-            g2.drawString(result, screenWidth / 2 - 200, screenHeight / 2 +100);
-        }
-        // if game stopped due to win, display result
-        if (gameThread == null) {
-            g2.setFont(new Font("Arial", Font.BOLD, 100));
+        // ===== GAME OVER =====
+        if (gameOver) {
+            g2.setFont(new Font("Arial", Font.BOLD, 80));
             g2.setColor(Color.red);
-            String result = (goku.hp <= 0) ? "K.O!" : "WINS!";
-            g2.drawString(result, screenWidth / 2-100, screenHeight / 2);
+            String result = (goku.hp <= 0) ? vegeta.getName() + " WINS!" : goku.getName() + " WINS!";
+            g2.drawString(result, screenWidth / 2 - 260, screenHeight / 2);
+
+            g2.setFont(new Font("Arial", Font.BOLD, 24));
+            g2.setColor(Color.white);
+            g2.drawString("PRESS ENTER TO BACK MENU",
+                    screenWidth / 2 - 220,
+                    screenHeight / 2 + 50);
         }
 
         g2.dispose();
     }
 
-    // Hàm tiện ích vẽ chữ có viền đều quanh
-    private void drawTextWithOutline(Graphics2D g2, String text, int x, int y, Color mainColor, int fontSize) {
-        g2.setFont(new Font("Arial", Font.BOLD, fontSize));
+    // ================= INPUT =================
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (gameOver && e.getKeyCode() == KeyEvent.VK_ENTER) {
+            frame.getContentPane().removeAll();
+            RegisterPanel menu = new RegisterPanel(frame);
+            frame.add(menu);
+            frame.revalidate();
+            frame.repaint();
+            menu.requestFocusInWindow();
+        }
+    }
 
-        // Viền đen quanh chữ
+    @Override public void keyReleased(KeyEvent e) {}
+    @Override public void keyTyped(KeyEvent e) {}
+
+
+private void drawTextWithOutline(Graphics2D g2, String text, int x, int y, Color color, int size) {
+        g2.setFont(new Font("Arial", Font.BOLD, size));
         g2.setColor(Color.black);
-        g2.drawString(text, x-1, y);
-        g2.drawString(text, x+2, y);
-        g2.drawString(text, x, y-1);
-        g2.drawString(text, x, y+2);
-
-        // Chữ chính
-        g2.setColor(mainColor);
+        g2.drawString(text, x - 1, y);
+        g2.drawString(text, x + 1, y);
+        g2.drawString(text, x, y - 1);
+        g2.drawString(text, x, y + 1);
+        g2.setColor(color);
         g2.drawString(text, x, y);
     }
 
@@ -342,6 +319,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             skillYv += 45;
         }
+
+
     }
 
 

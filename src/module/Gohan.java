@@ -7,34 +7,60 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Gohan extends Player {
+
     KeyHandler keyH = new KeyHandler();
-    ImageIcon gohan;
+    private Image gohanImg;
+
     public Gohan(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Gohan", 120, 100,0);
+        super(gp, "Gohan", 120, 100, 0);
         this.x = 120;
         this.y = 360;
         this.color = Color.orange;
         this.facingRight = true;
+
+        // 🔥 LOAD ẢNH 1 LẦN
+        gohanImg = new ImageIcon(
+                "src/assets/player/gohan/Thiết kế chưa có tên (31).png"
+        ).getImage();
     }
+
     public Gohan() {
-        super( "Gohan", 120, 100,0);
+        super("Gohan", 120, 100, 0);
+        gohanImg = new ImageIcon(
+                "src/assets/player/gohan/Thiết kế chưa có tên (31).png"
+        ).getImage();
     }
 
-    public Gohan(Player Gohan) {
-        super(Gohan);
+    public Gohan(Player gohan) {
+        super(gohan);
+        gohanImg = new ImageIcon(
+                "src/assets/player/gohan/Thiết kế chưa có tên (31).png"
+        ).getImage();
     }
 
+    // ================= DRAW =================
     @Override
     public void draw(Graphics2D g2) {
-        gohan = new ImageIcon("src/assets/player/gohan/Thiết kế chưa có tên (31).png");
-        g2.setColor(color);
-        g2.drawImage(gohan.getImage(), x, y,width*3,height*4, null);
-        // name
-        g2.setColor(Color.white);
 
+        int drawW = width * 3;
+        int drawH = height * 4;
+
+        if (facingRight) {
+            g2.drawImage(gohanImg, x, y, drawW, drawH, null);
+        } else {
+            // 🔥 LẬT ẢNH NGANG
+            g2.drawImage(
+                    gohanImg,
+                    x + drawW,
+                    y,
+                    -drawW,
+                    drawH,
+                    null
+            );
+        }
     }
 
-
+    // ================= SKILL =================
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {

@@ -5,36 +5,63 @@ import view.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
-
 
 public class Vegeta extends Player {
-    ImageIcon vegeta;
+
+    private Image vegetaImg;
 
     public Vegeta(GamePanel gp, KeyHandler keyH) {
-        super(gp, "Vegeta", 140,100,0);
-        this.x = gp.getWidth()+60; // later gp.getWidth may be 0 during init; GamePanel uses fixed width so it's fine
+        super(gp, "Vegeta", 140, 100, 0);
+
+        // spawn bên phải
+        this.x = gp.getWidth() + 60;
         this.y = 360;
         this.color = Color.cyan;
         this.facingRight = false;
+
+        // 🔥 LOAD ẢNH 1 LẦN
+        vegetaImg = new ImageIcon(
+                "src/assets/player/vegeta/hinh1.png"
+        ).getImage();
     }
+
     public Vegeta() {
-        super( "Vegeta", 120, 100,0);
+        super("Vegeta", 120, 100, 0);
+        vegetaImg = new ImageIcon(
+                "src/assets/player/vegeta/hinh.png"
+        ).getImage();
     }
 
     public Vegeta(Player vegeta) {
         super(vegeta);
+        vegetaImg = new ImageIcon(
+                "src/assets/player/vegeta/hinh.png"
+        ).getImage();
     }
 
+    // ================= DRAW =================
     @Override
     public void draw(Graphics2D g2) {
-         vegeta = new ImageIcon("src/assets/player/vegeta/hinh.png");
-        g2.setColor(color);
-        g2.drawImage(vegeta.getImage(), x, y,width*4,height*4, null);
-        g2.setColor(Color.white);
 
+        int drawW = width * 4;
+        int drawH = height * 4;
+
+        if (facingRight) {
+            g2.drawImage(vegetaImg, x, y, drawW, drawH, null);
+        } else {
+            // 🔥 LẬT ẢNH NGANG
+            g2.drawImage(
+                    vegetaImg,
+                    x + drawW,
+                    y,
+                    -drawW,
+                    drawH,
+                    null
+            );
+        }
     }
 
+    // ================= SKILL =================
     @Override
     public int getManaCost(int skillIndex) {
         switch (skillIndex) {

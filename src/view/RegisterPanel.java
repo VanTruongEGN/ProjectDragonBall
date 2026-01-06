@@ -40,6 +40,8 @@ public class RegisterPanel extends JPanel implements Runnable {
                 nextDrawTime += drawInterval;
             } catch (InterruptedException e) {
                 e.printStackTrace(); } } }
+
+
     @Override protected void paintComponent(Graphics g) {
         super.paintComponent(g); Graphics2D g2 = (Graphics2D) g;
         if (background != null) {

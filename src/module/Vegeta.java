@@ -87,11 +87,11 @@ public class Vegeta extends Player {
     @Override
     public String getSkillName(int skillIndex) {
         switch (skillIndex) {
-            case 1: return "Punch";
-            case 2: return "Ki Blast";
-            case 3: return "Kamehameha";
-            case 4: return "Recover";
-            case 5: return "Quick Jab";
+            case 1: return "Punch(J)";
+            case 2: return "Ki Blast(K)";
+            case 3: return "Automic(L)";
+            case 4: return "Recover(M)";
+            case 5: return "Quick Jab(H)";
             default: return "";
         }
     }

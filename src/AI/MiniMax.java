@@ -64,7 +64,7 @@ public class MiniMax {
             current = node;
             return heuristic(node);
         }
-        if (isMax) { // MAX – A.I
+        if (isMax) {
             int temp = -99999999;
             for (int skill : skillCanUseInState(node.vegeta)) {
                 if (skill != -1) {
@@ -87,7 +87,7 @@ public class MiniMax {
             }
             return temp;
         }
-        else { // MIN – PLAYER
+        else {
             int temp = 99999999;
             for (int skill : skillCanUseInState(node.goku)) {
                 if (skill != -1) {

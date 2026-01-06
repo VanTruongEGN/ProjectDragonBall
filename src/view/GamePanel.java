@@ -16,37 +16,34 @@ import java.util.Iterator;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
-    // ================= SCREEN =================
     public final int tileSize = 59;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
-    // ================= CORE =================
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
 
-    public Player goku;    // PLAYER (LEFT)
-    public Player vegeta;  // OPPONENT (RIGHT)
+    public Player goku;   
+    public Player vegeta;  
 
     Image background;
     public ArrayList<Projectile> projectiles = new ArrayList<>();
 
-    // ================= GAME STATE =================
-    public boolean gokuTurn = true;
+    public boolean gokuTurn = false;
     boolean gameOver = false;
     int skillIndex = 0;
 
-    // ================= AI =================
+    //   AI 
     Greedy greedy = new Greedy();
     MiniMax miniMax = new MiniMax();
     AlpheBeta alpheBeta = new AlpheBeta();
 
-    // ================= FRAME =================
+    //   FRAME  
     private JFrame frame;
 
-    // ================= CONSTRUCTOR =================
+    //   CONSTRUCTOR  
     public GamePanel(String playerName, String opponentName, JFrame frame) {
         this.frame = frame;
 
@@ -58,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         addKeyListener(keyH);
         addKeyListener(this);
 
-        // ===== CREATE PLAYER =====
+        //    CREATE PLAYER   
         goku = createPlayer(playerName);
         vegeta = createPlayer(opponentName);
 
@@ -80,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         };
     }
 
-    // ================= THREAD =================
+    //   THREAD  
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -107,11 +104,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
     }
 
-    // ================= UPDATE =================
+    //   UPDATE  
     public void update() {
         if (gameOver) return;
-
-        // ===== UPDATE PROJECTILES =====
         if (!projectiles.isEmpty()) {
             Iterator<Projectile> it = projectiles.iterator();
             while (it.hasNext()) {
@@ -122,7 +117,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             return;
         }
 
-        // ===== PLAYER TURN =====
+        //    PLAYER TURN   
         if (gokuTurn) {
             skillIndex = keyH.getSkillPressed();
 
@@ -135,37 +130,52 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 gokuTurn = false;
             }
         }
-        // ===== AI TURN =====
+        //    AI TURN   
         else {
             autoAI();
             gokuTurn = true;
         }
 
-        // ===== CHECK WIN =====
+        //    CHECK WIN   
         if (goku.hp <= 0 || vegeta.hp <= 0) {
             gameOver = true;
             gameThread = null;
         }
     }
 
-    // ================= AI =================
+    //   AI  
     private void autoAI() {
         if (vegeta.strong >= 100) {
             skillIndex = 5;
         } else {
             GameState root = new GameState(goku, vegeta);
-            skillIndex = alpheBeta.getBestSkillAlphaBeta(root, 3);
+
+            int[] skills = miniMax.skillCanUseInState(root.vegeta);
+            int countSkill = 0;
+            for (int s : skills) {
+                if (s != -1) countSkill++;
+            }
+
+            if (countSkill > 2) {
+                skillIndex = alpheBeta.getBestSkillAlphaBeta(root, 3);
+                System.out.println("AI chọn bằng Alpha-Beta, skill: " + skillIndex);
+            } else {
+                skillIndex = miniMax.getBestSkill(root, 3);
+                System.out.println("AI chọn bằng Minimax, skill: " + skillIndex);
+            }
         }
 
-        if (skillIndex == 5) vegeta.resetStrongRatio();
-
+        if (skillIndex == 5) {
+            vegeta.resetStrongRatio();
+        }
         if (vegeta.canUseSkill(skillIndex)) {
             Projectile p = vegeta.useSkill(skillIndex, goku);
             if (p != null) projectiles.add(p);
+
         }
     }
 
-    // ================= DRAW =================
+    //   DRAW  
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -183,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         drawStatusBar(g2);
 
-        // ===== TURN =====
+        //    TURN   
         g2.setFont(new Font("Arial", Font.BOLD, 16));
         g2.setColor(Color.white);
         g2.drawString(
@@ -191,8 +201,21 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 screenWidth / 2 - 60,
                 30
         );
+        if(gokuTurn && skillIndex !=0){
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            g2.setColor(Color.lightGray);
+            String result = goku.getName() + "\t dùng skill: " + goku.getSkillName(skillIndex);
+            g2.drawString(result, screenWidth / 2 - 200, screenHeight / 2 +100);
+        }
 
-        // ===== GAME OVER =====
+        if (!gokuTurn && gameThread != null ) {
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            g2.setColor(Color.lightGray);
+            String result = vegeta.getName() + "\t dùng skill: " + vegeta.getSkillName(skillIndex);
+            g2.drawString(result, screenWidth / 2 - 200, screenHeight / 2 +100);
+        }
+
+        //    GAME OVER   
         if (gameOver) {
             g2.setFont(new Font("Arial", Font.BOLD, 80));
             g2.setColor(Color.red);
@@ -209,7 +232,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g2.dispose();
     }
 
-    // ================= INPUT =================
+    //   INPUT  
     @Override
     public void keyPressed(KeyEvent e) {
         if (gameOver && e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -236,8 +259,7 @@ private void drawTextWithOutline(Graphics2D g2, String text, int x, int y, Color
         g2.setColor(color);
         g2.drawString(text, x, y);
     }
-
-    private void drawStatusBar(Graphics2D g2) {
+private void drawStatusBar(Graphics2D g2) {
         int barW = 220, barH = 18;
         int px = 20, py = 20;
         int rx = screenWidth - barW - 20;
@@ -269,10 +291,15 @@ private void drawTextWithOutline(Graphics2D g2, String text, int x, int y, Color
 
         // --- Chiêu thức bên trái ---
         int skillY = py + 110;
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 5; i++) {
             String skillName = goku.getSkillName(i);
             String dmg = "DMG: " + goku.getSkillDamage(i);
-            String mana = "Mana: " + goku.getManaCost(i);
+            String mana;
+            if(i==4){
+                 mana = "Mana: " + "+" +goku.getManaCost(i)*(-1);
+            }else{
+                 mana = "Mana: " + goku.getManaCost(i);
+            }
 
             drawTextWithOutline(g2, skillName, px, skillY, Color.orange, 18);
             drawTextWithOutline(g2, dmg, px, skillY + 20, Color.GREEN, 16);
@@ -281,7 +308,7 @@ private void drawTextWithOutline(Graphics2D g2, String text, int x, int y, Color
             skillY += 45; // khoảng cách lớn hơn để chữ không chồng lên nhau
         }
 
-        // --- Thanh máu/mana bên phải ---
+        // Thanh máu/mana bên phải 
         GradientPaint hpGradientV = new GradientPaint(rx, py, Color.red, rx + barW, py, Color.orange);
         g2.setPaint(hpGradientV);
         g2.fillRoundRect(rx, py, (int)(barW * vegeta.getHpRatio()), barH, 10, 10);
@@ -308,10 +335,15 @@ private void drawTextWithOutline(Graphics2D g2, String text, int x, int y, Color
 
         // --- Chiêu thức bên phải ---
         int skillYv = py + 110;
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 5; i++) {
             String skillName = vegeta.getSkillName(i);
             String dmg = "DMG: " + vegeta.getSkillDamage(i);
-            String mana = "Mana: " + vegeta.getManaCost(i);
+            String mana;
+            if(i==4){
+                 mana = "Mana: " + "+" +vegeta.getManaCost(i)*(-1);
+            }else{
+                 mana = "Mana: " + vegeta.getManaCost(i);
+            }
 
             drawTextWithOutline(g2, skillName, rx, skillYv, Color.orange, 18);
             drawTextWithOutline(g2, dmg, rx, skillYv + 20, Color.GREEN, 16);
